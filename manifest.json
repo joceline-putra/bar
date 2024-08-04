@@ -1,0 +1,35 @@
+{
+	"name": "Journal Cloud",
+    "short_name": "Journal Cloud",
+	"description": "Journal Cloud Description",
+	"start_url": "https://jrn.aplikasi.cloud",
+	"background_color": "white",
+	"theme_color": "black",
+	"display": "standalone",
+	"orientation": "portrait-primary",	
+    "lang": "en-US",
+    "shortcuts" : [
+        {
+            "name": "POS 1",
+            "url": "/sales/pos",
+            "description": "Make new sales"
+        },
+        {
+            "name": "POS 2",
+            "url": "/sales/pos2",
+            "description": "Make new sales"
+        },
+        {
+            "name": "POS 3",
+            "url": "/sales/pos3",
+            "description": "Make new sales"
+        }		
+    ],
+	"icons": [
+		{
+			"src":"assets/core/favicon_164.png",
+			"sizes": "164x164",
+			"type": "image/png"
+		}		 
+	]
+}
