@@ -35,8 +35,8 @@ class Kategori extends MY_Controller{
             $data['parent_category'] = $this->Kategori_model->get_all_categoriess($params,$search,10,0,$order,'ASC');
             $data['identity'] = $identity;
             $data['title'] = 'Kategori Produk';
-            $data['_view'] = 'layouts/admin/menu/webpage/category_product';
-            $file_js = 'layouts/admin/menu/webpage/category_product_js.php';
+            $data['_view'] = 'layouts/admin/menu/product/category_product';
+            $file_js = 'layouts/admin/menu/product/category_product_js.php';
         }
 
         if($identity == 2){ //Kategori Artikel

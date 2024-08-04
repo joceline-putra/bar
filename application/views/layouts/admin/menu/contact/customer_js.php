@@ -101,9 +101,9 @@
                             dsp += '<br><label class="label label-inverse" style="padding:1px 4px;">' + row.contact_code+'</label>';
                         }
 
-                        if (row.contact_parent_id != undefined) {
-                            dsp += '<br><label class="label" style="background-color:#33b0b6;color:white;padding:1px 4px;">' + row.contact_parent_name+'</label>';
-                        }                                        
+                        // if (row.contact_parent_id != undefined) {
+                        //     dsp += '<br><label class="label" style="background-color:#33b0b6;color:white;padding:1px 4px;">' + row.contact_parent_name+'</label>';
+                        // }                                        
                         return dsp;
                     }
                 }, {

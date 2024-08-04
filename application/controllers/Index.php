@@ -73,12 +73,12 @@ class Index extends MY_Controller{
             // $data['_js']   = 'layouts/admin/menu/dashboard/v1_js';
 
             //Apex
-            // $data['_view'] = 'layouts/admin/menu/dashboard/apex_v1';
-            // $data['_js']   = 'layouts/admin/menu/dashboard/apex_v1_js'; 
+            $data['_view'] = 'layouts/admin/menu/dashboard/apex_v1';
+            $data['_js']   = 'layouts/admin/menu/dashboard/apex_v1_js'; 
 
             // SIM
-            $data['_view'] = 'layouts/admin/menu/dashboard/apex_v1_demo';
-            $data['_js']   = 'layouts/admin/menu/dashboard/apex_v1_demo_js';   
+            // $data['_view'] = 'layouts/admin/menu/dashboard/apex_v1_demo';
+            // $data['_js']   = 'layouts/admin/menu/dashboard/apex_v1_demo_js';   
 
             // LMS
             // $data['_view'] = 'layouts/admin/menu/dashboard/lms';

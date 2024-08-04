@@ -29,31 +29,31 @@ $next = true;
                 </a>
                 <li class="start open visible-xs visible-sm hidden-md hidden-lg"> 
                     <ul class="open sub-menu" style="display:block;">
-                        <li> 
+                        <!-- <li> 
                             <a href="#" class="btn-header-stock">
                                 <i class="fas fa-cubes"></i> Cari Stok
                             </a> 
-                        </li>
+                        </li> -->
                         <li> 
                             <a href="#" class="btn-header-product-history">
                                 <i class="fas fa-search-dollar"></i> Riwayat Harga
                             </a> 
                         </li>
-                        <li> 
+                        <!-- <li> 
                             <a href="#" class="btn-header-stock-minimal">
                                 <i class="fas fa-file-upload"></i> Stok Habis
                             </a> 
-                        </li> 
+                        </li>  -->
                         <li> 
                             <a href="#" class="btn-header-trans-over-due">
                                 <i class="fas fa-calendar-week"></i> Jatuh Tempo
                             </a> 
                         </li>
-                        <li> 
+                        <!-- <li> 
                             <a href="#" class="btn-header-down-payment">
                                 <i class="fas fa-money-bill"></i> Cari Down Payment
                             </a> 
-                        </li>                                                                                    
+                        </li>                                                                                     -->
                     </ul>
                 </li>                
             </li>
@@ -259,9 +259,9 @@ $next = true;
                                                             echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/sell/recap') . '" style=""><span class="title">Penjualan Rekap</span> <span class="selected"></span></a></li>';
                                                             echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/sell/detail') . '" style=""><span class="title">Penjualan Rinci</span> <span class="selected"></span></a></li>';
                                                             echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/sell/account_receivable') . '" style=""><span class="title">Piutang Customer</span> <span class="selected"></span></a></li>';
-                                                            echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/order/detail') . '" style=""><span class="title">Sales Order Rinci</span> <span class="selected"></span></a></li>';
-                                                            echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/prepare/detail') . '" style=""><span class="title">Prepare Rinci</span> <span class="selected"></span></a></li>';
-                                                            echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/return/detail') . '" style=""><span class="title">Retur Penjualan</span> <span class="selected"></span></a></li>';
+                                                            // echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/order/detail') . '" style=""><span class="title">Sales Order Rinci</span> <span class="selected"></span></a></li>';
+                                                            // echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/prepare/detail') . '" style=""><span class="title">Prepare Rinci</span> <span class="selected"></span></a></li>';
+                                                            // echo '<li class="start"><a id="" data-id="" href="' . base_url('report/sales/return/detail') . '" style=""><span class="title">Retur Penjualan</span> <span class="selected"></span></a></li>';
                                                             echo '<li class="hide"><a id="" data-id="" href="" style=""><span class="title">Usia Piutang</span> <span class="selected"></span></a></li>';
                                                             break;
                                                         case "Produksi":

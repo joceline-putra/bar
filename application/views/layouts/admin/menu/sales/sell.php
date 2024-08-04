@@ -251,7 +251,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
-                                                                    <div class="col-md-12 col-xs-6 col-sm-12 padding-remove-side prs-5">
+                                                                    <div class="hide col-md-12 col-xs-6 col-sm-12 padding-remove-side prs-5">
                                                                         <div class="col-md-12 col-xs-12 col-sm-12 form-group prs-5">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Syarat Pembayaran</label>
@@ -265,12 +265,17 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0">
+                                                                    <div class="hide col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0">
                                                                         <div class="col-md-12 col-xs-12 col-sm-12 form-group prs-5">
                                                                             <div class="form-group prs-5">
                                                                                 <label class="form-label">Gudang Pengambilan Stok</label>
                                                                                 <select id="gudang" name="gudang" class="form-control" disabled readonly>
-                                                                                    <option value="0">-- Pilih / Cari --</option>
+                                                                                    <!-- <option value="0">-- Pilih / Cari --</option> -->
+                                                                                    <?php 
+                                                                                    foreach($location as $v){
+                                                                                        echo '<option value="'.$v['location_id'].'" selected>'.$v['location_name'].'</option>';
+                                                                                    }
+                                                                                    ?>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -286,19 +291,19 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
-                                                                        <div class="col-md-7 col-xs-12 col-sm-12 padding-remove-left prs-5">
+                                                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left prs-5">
                                                                             <div class="form-group">
-                                                                                <label class="form-label">Nomor PO Customer</label>
+                                                                                <label class="form-label">Proyek</label>
                                                                                 <input id="nomor_ref" name="nomor_ref" type="text" value="" class="form-control"/>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-5 col-xs-12 col-sm-12 padding-remove-left prs-5">
+                                                                        <div class="hide col-md-5 col-xs-12 col-sm-12 padding-remove-left prs-5">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Nama Penerima</label>
                                                                                 <input id="trans_person_name" name="trans_person_name" type="text" value="" class="form-control"/>
                                                                             </div>                                                                            
                                                                         </div>
-                                                                        <div class="col-md-12 col-xs-6 col-sm-6 padding-remove-left prs-0">
+                                                                        <div class="hide col-md-12 col-xs-6 col-sm-6 padding-remove-left prs-0">
                                                                             <div class="form-group prs-5">
                                                                                 <label class="form-label">Sales By</label>
                                                                                 <select id="trans_sales_id" name="trans_sales_id" class="form-control" disabled readonly>
@@ -307,7 +312,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <!-- <div class="clearfix"></div> -->
-                                                                        <div class="col-md-7 col-xs-6 col-sm-6 padding-remove-left prs-0">
+                                                                        <div class="hide col-md-7 col-xs-6 col-sm-6 padding-remove-left prs-0">
                                                                             <div class="form-group prs-5">
                                                                                 <label class="form-label">Supir</label>
                                                                                 <select id="trans_vehicle_person" name="trans_vehicle_person" class="form-control" disabled readonly>
@@ -315,7 +320,7 @@
                                                                                 </select>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-5 col-xs-6 col-sm-12 padding-remove-left prs-5">
+                                                                        <div class="hide col-md-5 col-xs-6 col-sm-12 padding-remove-left prs-5">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Nomor Plat</label>
                                                                                 <input id="trans_vehicle_plate_number" name="trans_vehicle_plate_number" type="text" value="" class="form-control"/>
@@ -352,14 +357,14 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-7 col-xs-12 col-sm-12 padding-remove-side prs-0">
-                                                                <div class="col-md-2 col-xs-4 col-sm-12 prs-0 prr-2">
+                                                                <div class="hide col-md-2 col-xs-4 col-sm-12 prs-0 prr-2">
                                                                     <div class="form-group">
                                                                         <label class="form-label">Info Stok</label>
                                                                         <input id="stock" name="stock" type="text" value="" class="form-control"
                                                                                readonly='true'/>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-2 col-xs-8 col-sm-12 padding-remove-left prs-0 prl-2">
+                                                                <div class="col-md-2 col-xs-8 col-sm-12 prs-0 prr-2">
                                                                     <div class="form-group">
                                                                         <label class="form-label">Satuan</label>
                                                                         <input id="satuan" name="satuan" type="text" value="" class="form-control"
@@ -372,7 +377,7 @@
                                                                         <input id="qty" name="qty" type="text" value="1" class="form-control" readonly='true'/>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-2 col-xs-6 col-sm-12 padding-remove-left prs-0 prl-2">
+                                                                <div class="hide col-md-2 col-xs-6 col-sm-12 padding-remove-left prs-0 prl-2">
                                                                     <div class="form-group">
                                                                         <label class="form-label">Qty Koli</label>
                                                                         <input id="qty_pack" name="qty_pack" type="text" value="1" class="form-control" readonly='true' />
@@ -444,8 +449,8 @@
                                                                 <th>Produk</th>
                                                                 <th style="text-align:right;">Qty / Unit</th>
                                                                 <th style="text-align:right;">Harga</th>     
-                                                                <th style="text-align:left;">Lokasi Pengambilan</th>
-                                                                <th style="text-align:right;">Koli</th>                              
+                                                                <!-- <th style="text-align:left;">Lokasi Pengambilan</th> -->
+                                                                <!-- <th style="text-align:right;">Koli</th>-->
                                                                 <th style="text-align:right;">Diskon</th>
                                                                 <th style="text-align:left;">Ppn</th>
                                                                 <th style="text-align:right;">Jumlah</th>
@@ -547,7 +552,7 @@
                                                      style="margin-top: 10px;margin-bottom:10px;">
                                                     <div class="form-group">
                                                         <div class="pull-left">                            
-                                                            <button id="btn-journal" class="btn btn-default btn-small" type="button">
+                                                            <button id="btn-journal" class="hide btn btn-default btn-small" type="button">
                                                                 <i class="fas fa-clipboard-check"></i>
                                                                 Jurnal Entri
                                                             </button>                                                            
@@ -599,11 +604,16 @@
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan + Riwayat
                                                                     </a>
                                                                 </li>
-                                                                <li>
+                                                                <!-- <li>
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_group">
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan Rapi
                                                                     </a>
-                                                                </li>                                
+                                                                </li>                                 -->
+                                                                <li>
+                                                                    <a href="#" class="btn-print-dropdown" data-action="print_kwitansi">
+                                                                        <i class="fas fa-print"></i>&nbsp;&nbsp;Kwitansi
+                                                                    </a>
+                                                                </li>                                                              
                                                                 <li class="">
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_delivery">
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Surat Jalan

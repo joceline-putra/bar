@@ -499,20 +499,10 @@
                     color:  '#263238'
                 },
             },
-            series: [
-                {
-                    name: "Beli",
-                    type:'line', 
-                    data: [0, 0, 0, 0]
-                },                
+            series: [              
                 {
                     name: "Jual",          
                     type:'column',     
-                    data: [0, 0, 0, 0]
-                },
-                {
-                    name: "Biaya",
-                    type:'line',                                   
                     data: [0, 0, 0, 0]
                 },
                 {
@@ -544,8 +534,8 @@
                         speed: 350
                     }
                 }                
-            },
-            colors:["#db2e59","#0090d9","#f06605","#36a6a3"],      
+            },    
+            colors:["#0090d9","#36a6a3"],                  
             dataLabels: {
                 enabled: false,
                 formatter: function (val, opt) {
@@ -611,17 +601,17 @@
                 //     horizontal: false,
                 // }
             },
-            fill: {
-                opacity: [0.5, 0.9, 1, 1],
-                gradient: {
-                    inverseColors: false,
-                    shade: 'light',
-                    type: "vertical",
-                    opacityFrom: 0.85,
-                    opacityTo: 0.55,
-                    stops: [0, 100, 100, 100]
-                }
-            },                  
+            // fill: {
+            //     opacity: [0.5, 0.9, 1, 1],
+            //     gradient: {
+            //         inverseColors: false,
+            //         shade: 'light',
+            //         type: "vertical",
+            //         opacityFrom: 0.85,
+            //         opacityTo: 0.55,
+            //         stops: [0, 100, 100, 100]
+            //     }
+            // },
             xaxis: {
                 labels: {
                     show: true,
@@ -822,14 +812,14 @@
         };
      
 
-        var apex_1 = new ApexCharts(document.querySelector("#chart-one"), apexOption_1);
-        var apex_2 = new ApexCharts(document.querySelector("#chart-two"), apexOption_2);        
+        // var apex_1 = new ApexCharts(document.querySelector("#chart-one"), apexOption_1);
+        // var apex_2 = new ApexCharts(document.querySelector("#chart-two"), apexOption_2);        
         var apex_3 = new ApexCharts(document.querySelector("#chart-three"), apexOption_3); 
         var apex_4 = new ApexCharts(document.querySelector("#chart-four"), apexOption_4);      
         var apex_5 = new ApexCharts(document.querySelector("#chart-five"), apexOption_5);                
 
-        apex_1.render();
-        apex_2.render();        
+        // apex_1.render();
+        // apex_2.render();        
         apex_3.render();   
         
         apex_4.render();           
@@ -862,53 +852,53 @@
                             var sl = set_label.split(" ");
                             // labels.push(res[i].chart_name);
                             labels.push(sl[0]);
-                            result_buy.push(parseInt(res[i].chart_buy));
+                            // result_buy.push(parseInt(res[i].chart_buy));
                             result_sell.push(parseInt(res[i].chart_sell));
                             result_income.push(parseInt(res[i].chart_income));
-                            result_expense.push(parseInt(res[i].chart_expense));    
+                            // result_expense.push(parseInt(res[i].chart_expense));    
                             
-                            $('#total-buy-month').text('Rp. ' + addCommas(parseInt(res[i].chart_buy)) + '');
+                            // $('#total-buy-month').text('Rp. ' + addCommas(parseInt(res[i].chart_buy)) + '');
                             $('#total-sell-month').text('Rp. ' + addCommas(parseInt(res[i].chart_sell)) + '');   
 
                             $('#total-cash-in-month').text('Rp. ' + addCommas(parseInt(res[i].chart_income)) + '');
-                            $('#total-cash-out-month').text('Rp. ' + addCommas(parseInt(res[i].chart_expense)) + '');                             
+                            // $('#total-cash-out-month').text('Rp. ' + addCommas(parseInt(res[i].chart_expense)) + '');                             
                         }
 
                         /* Chart 1 */
                         // apexOption_1.series[0].data = result_income;
                         // apexOption_1.series[1].data = result_expense;                        
                         // apex_1.update();
-                        apex_1.updateOptions({
-                            xaxis: {
-                              categories: labels
-                            }
-                        });              
-                        apex_1.updateSeries([
-                            {
-                                data: result_income
-                            },
-                            {
-                                data: result_expense
-                            }                            
-                        ]);                          
+                        // apex_1.updateOptions({
+                        //     xaxis: {
+                        //       categories: labels
+                        //     }
+                        // });              
+                        // apex_1.updateSeries([
+                        //     {
+                        //         data: result_income
+                        //     },
+                        //     {
+                        //         data: result_expense
+                        //     }                            
+                        // ]);                          
 
                         /* Chart 2 */
                         // apexOption_2.series[0].data = result_buy;
                         // apexOption_2.series[1].data = result_sell;                    
                         // // apex_2.update();
-                        apex_2.updateOptions({
-                            xaxis: {
-                              categories: labels
-                            }
-                        });     
-                        apex_2.updateSeries([
-                            {
-                                data: result_buy
-                            },
-                            {
-                                data: result_sell
-                            }                            
-                        ]);   
+                        // apex_2.updateOptions({
+                        //     xaxis: {
+                        //       categories: labels
+                        //     }
+                        // });     
+                        // apex_2.updateSeries([
+                        //     {
+                        //         data: result_buy
+                        //     },
+                        //     {
+                        //         data: result_sell
+                        //     }                            
+                        // ]);   
 
                         /* Chart 2 */
                         // apexOption_3.series[0].data = result_buy;
@@ -922,15 +912,15 @@
                             }
                         });  
                         apex_3.updateSeries([
-                            {
-                                data: result_buy
-                            },
+                            // {
+                            //     data: result_buy
+                            // },
                             {
                                 data: result_sell
                             },
-                            {
-                                data: result_expense
-                            },
+                            // {
+                            //     data: result_expense
+                            // },
                             {
                                 data: result_income
                             }                                                        
@@ -1070,7 +1060,7 @@
         
         /* CHART */      
         chart_recap_all();
-        chart_account_expense();
+        // chart_account_expense();
         chart_account_realtime();
             
         /* CARD */
@@ -1079,7 +1069,7 @@
 
         /* DISABLED */
         // top_product(1); //top_product(2);
-        // top_customer();
+        top_customer();
         // top_trans_overdue(1); top_trans_overdue(2);
 
         /* NOT USED */

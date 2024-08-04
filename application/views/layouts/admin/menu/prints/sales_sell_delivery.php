@@ -12,8 +12,8 @@
     <style>
         @import url('https://fonts.cdnfonts.com/css/dot-matrix');
         body{
-            /* font-family: monospace; */
-            font-family: 'Dot Matrix', sans-serif!important;
+            font-family: monospace;
+            /* font-family: 'Dot Matrix', sans-serif!important; */
         }
         .title{
             font-weight: 800;
@@ -58,8 +58,7 @@
                             <?php
                             $set_qrcode = base_url('transaksi/print_history/') . $header['trans_session'];
                             ?>
-                            <img src="https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl=<?php echo $set_qrcode; ?>&choe=UTF-8" title="Link to Google.com" />
-
+                            <!-- <img src="https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl=<?php echo $set_qrcode; ?>&choe=UTF-8" title="Link to Google.com" /> -->
                         </div>
                         <div class="col-xs-6">
                             <p style="text-align:center;">
@@ -70,9 +69,7 @@
                             </p>
                         </div>
                         <div class="col-xs-3 text-right">
-                            <b onclick="window.print();" style="cursor:pointer;"><?php echo $title; ?></b><br>
-                            <?php echo $header['trans_number']; ?>
-
+                            <b onclick="window.print();" style="cursor:pointer;"><?php echo $header['trans_number']; ?></b><br>
                         </div>          
                         </p>
                     </div>
@@ -90,10 +87,10 @@
                                 <tr><td>Tanggal</td><td class="text-right"><?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></td></tr>
                                 <tr><td>Tanggal Jth Tempo</td><td class="text-right"><?php echo date("d-M-Y", strtotime($header['trans_date_due'])); ?></td></tr>
                                 <!-- <tr><td>Sales</td><td>:</td></tr> -->
-                                <tr><td>Nomor PO Customer</td><td class="text-right"><?php echo $header['trans_ref_number']; ?></td></tr>
-                                <tr><td>Plat Nomor</td><td class="text-right"><?php echo $header['trans_vehicle_plate_number']; ?></td></tr>              
-                                <tr><td>Pembayaran</td><td class="text-right"><?php echo ($header['contact_termin'] == 0) ? ' Cash (COD)' : ' ' . $header['contact_termin'] . ' Hari'; ?></td></tr>                                       
-                                <tr><td>Salesman</td><td class="text-right"><?php echo $header['sales_fullname']; ?></td></tr>
+                                <tr><td>Proyek</td><td class="text-right"><?php echo $header['trans_ref_number']; ?></td></tr>
+                                <!-- <tr><td>Plat Nomor</td><td class="text-right"><?php echo $header['trans_vehicle_plate_number']; ?></td></tr>               -->
+                                <!-- <tr><td>Pembayaran</td><td class="text-right"><?php echo ($header['contact_termin'] == 0) ? ' Cash (COD)' : ' ' . $header['contact_termin'] . ' Hari'; ?></td></tr>                                        -->
+                                <!-- <tr><td>Salesman</td><td class="text-right"><?php echo $header['sales_fullname']; ?></td></tr> -->
                             </table>
                         </div>          
                         </p>
@@ -165,10 +162,6 @@
                         <!-- </div>           -->
                         <!-- </div>         -->
                     </div>
-                    <div class="col-md-12 col-xs-12" style="">
-                        <i>Terimakasih atas kepercayaanya, Barang yang sudah di beli tidak dapat ditukar atau dikembalikan, komplain maksimal 2x24 jam<br>
-                            Mohon sertakan nomor invoice untuk pembayaran saat melakukan transfer bank</i>
-                    </div>                
                 </div>
             </div>
         </div>

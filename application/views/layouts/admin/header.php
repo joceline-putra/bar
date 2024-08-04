@@ -125,12 +125,12 @@ $sidebar_logo = !empty($session['user_data']['branch']['branch_logo_sidebar']) ?
                     <li class="quicklinks m-l-10 m-r-10">
                         <img src="<?php echo $sidebar_logo; ?>" class="logo" id="horizontal-logo" style="<?php echo $horizontal_logo_style;?>" data-src="<?php echo $sidebar_logo; ?>" data-src-retina="<?php echo $sidebar_logo; ?>"/>
                     </li>
-                    <li class="quicklinks m-l-10 m-r-10">
+                    <!-- <li class="quicklinks m-l-10 m-r-10">
                         <a href="#" class="" id="btn-header-stock">
                             <i class="fas fa-cubes"></i>
                             <span style="position: relative;">Cari Stok</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="quicklinks m-l-10 m-r-10">
                         <a href="#" class="" id="btn-header-product-history">
                             <i class="fas fa-search-dollar"></i>
@@ -181,13 +181,13 @@ $sidebar_logo = !empty($session['user_data']['branch']['branch_logo_sidebar']) ?
                                 </a>
                         </li>
                     -->
-                    <li class="quicklinks m-l-10 m-r-10">
+                    <!-- <li class="quicklinks m-l-10 m-r-10">
                         <a href="#" class="" id="btn-header-stock-minimal">
                             <span id="badge-product-stock-min" style="display:none;" class="badge badge-important">0</span>
                             <i class="fas fa-file-upload"></i>
                             <span style="position: relative;">Stok Habis</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="quicklinks m-l-10 m-r-10">
                         <a href="#" class="" id="btn-header-trans-over-due">
                             <span id="badge-trans-due-date" class="badge badge-important"></span>

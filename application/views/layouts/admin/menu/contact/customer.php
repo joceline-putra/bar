@@ -249,14 +249,14 @@
                                                             </div>
                                                         </div>                                                     
                                                     </div>    
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-remove-side">
+                                                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Sales / Karyawan</label>
                                                             <select id="contact_parent_id" name="contact_parent_id" class="form-control" disabled readonly>
                                                                 <option value="0">Pilih</option>
                                                             </select>
                                                         </div>
-                                                    </div>                    
+                                                    </div>-->
                                                     <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Catatan</label>
@@ -281,20 +281,18 @@
                                                             </select>
                                                         </div>
                                                     </div>                                
-                                                    <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                                                    <div class="hide col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Akun Hutang *</label>
                                                             <select id="account_payable" name="account_payable" class="form-control">
-                                                                <!-- <option value="0">-- Pilih Akun --</option> -->
                                                                 <?php echo '<option value="' . $account_payable['account_id'] . '">' . $account_payable['account_code'] . ' - ' . $account_payable['account_name'] . '</option>'; ?>                                
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                                                    <div class="hide col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Akun Piutang *</label>
                                                             <select id="account_receivable" name="account_receivable" class="form-control">
-                                                                <!-- <option value="0">-- Pilih Akun --</option> -->
                                                                 <?php echo '<option value="' . $account_receivable['account_id'] . '">' . $account_receivable['account_code'] . ' - ' . $account_receivable['account_name'] . '</option>'; ?>                                
                                                             </select>
                                                         </div>
@@ -319,7 +317,7 @@
                                                             </div>
                                                         </div>
                                                     </div>  
-                                                    <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="hide col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                         <div class="form-group">                          
                                                             <label>Fungsi Kontak Sebagai</label>                          
                                                             <!-- <label><input id="checkbox_supplier" type="checkbox"  id="checkbox_supplier" value="1">&nbsp;<?php #echo $title; ?></label> -->

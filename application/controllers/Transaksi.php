@@ -203,12 +203,12 @@ class Transaksi extends MY_Controller{
         $data['print_to']        =  $this->print_to; //0 = Local, 1 = Bluetooth
 
         //Sub Navigation
-        $params_menu = array(
-            'menu_parent_id' => $this->folder_location[$identity]['parent_id'],
-            'menu_flag' => 1
-        );
-        $get_menu = $this->Menu_model->get_all_menus($params_menu,null,null,null,'menu_sorting','asc');
-        $data['navigation'] = !empty($get_menu) ? $get_menu : [];
+        // $params_menu = array(
+        //     'menu_parent_id' => $this->folder_location[$identity]['parent_id'],
+        //     'menu_flag' => 1
+        // );
+        // $get_menu = $this->Menu_model->get_all_menus($params_menu,null,null,null,'menu_sorting','asc');
+        // $data['navigation'] = !empty($get_menu) ? $get_menu : [];
         
         // Ppn display on Buy and Sell + Type Paid
         if($identity==1 or $identity==2){
@@ -217,7 +217,8 @@ class Transaksi extends MY_Controller{
             $data['tax']        = $get_tax;
             $data['type_paid']  = $get_type_paid;
         }
-        
+        $data['location'] = $this->Lokasi_model->get_all_lokasis(['location_id'=>1],null,1,0,'location_id','asc');
+
         // Date
         $firstdate              = new DateTime('first day of this month');
         $datenow                = date("Y-m-d"); 
@@ -4568,11 +4569,11 @@ class Transaksi extends MY_Controller{
         // );
         $data['header'] = $this->Transaksi_model->get_transaksi($id);
         $data['branch'] = $this->Branch_model->get_branch($data['header']['user_branch_id']);
-        if($data['branch']['branch_logo'] == null){
+        if($data['branch']['branch_url'] == null){
             $get_branch = $this->Branch_model->get_branch(1);
-            $data['branch_logo'] = !empty($data['branch']['branch_logo_sidebar']) ? site_url().$data['branch']['branch_logo_sidebar'] : site_url().'upload/branch/default_sidebar.png';
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
         }else{
-            $data['branch_logo'] = !empty($data['branch']['branch_logo_sidebar']) ? site_url().$data['branch']['branch_logo_sidebar'] : site_url().'upload/branch/default_sidebar.png';
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
         }
         $data['journal_item'] = array();
 
@@ -4833,11 +4834,11 @@ class Transaksi extends MY_Controller{
         $id = $data['header']['trans_id'];
         // var_dump($data['header']);die;
         $data['branch'] = $this->Branch_model->get_branch($data['header']['trans_branch_id']);
-        if($data['branch']['branch_logo'] == null){
+        if($data['branch']['branch_url'] == null){
             $get_branch = $this->Branch_model->get_branch(1);
-            $data['branch_logo'] = !empty($data['branch']['branch_logo_sidebar']) ? site_url().$data['branch']['branch_logo_sidebar'] : site_url().'upload/branch/default_sidebar.png';
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
         }else{
-            $data['branch_logo'] = !empty($data['branch']['branch_logo_sidebar']) ? site_url().$data['branch']['branch_logo_sidebar'] : site_url().'upload/branch/default_sidebar.png';
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
         }
         $data['journal_item'] = array();
 
@@ -5068,11 +5069,11 @@ class Transaksi extends MY_Controller{
         $id = $data['header']['trans_id'];
         
         $data['branch'] = $this->Branch_model->get_branch($data['header']['trans_branch_id']);
-        if($data['branch']['branch_logo'] == null){
+        if($data['branch']['branch_url'] == null){
             $get_branch = $this->Branch_model->get_branch(1);
-            $data['branch_logo'] = !empty($data['branch']['branch_logo_sidebar']) ? site_url().$data['branch']['branch_logo_sidebar'] : site_url().'upload/branch/default_sidebar.png';
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
         }else{
-            $data['branch_logo'] = !empty($data['branch']['branch_logo_sidebar']) ? site_url().$data['branch']['branch_logo_sidebar'] : site_url().'upload/branch/default_sidebar.png';
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
         }
         $data['journal_item'] = array();
 
@@ -6139,6 +6140,132 @@ class Transaksi extends MY_Controller{
         // copy($file, "//localhost/printer-share-name"); # Do Print
         // unlink($file);
     }  
+    function print_kwitansi($session){ //Standard Print Session
+        //Header
+        $params = array(
+            'trans_session' => $session
+        );
+        // $get_header = $this->Order_model->get_all_orders($params,null,null,null,null,null);
+        // $data['header'] = array(
+        //     'order_number' => $get_header['order_number'],
+        //     'contact_name' => $get_header['contact_name'],
+        //     'ref_name' => $get_header['ref_name']
+        // );
+        $data['header'] = $this->Transaksi_model->get_transaksi_custom($params);
+        $id = $data['header']['trans_id'];
+        // var_dump($data['header']);die;
+        $data['branch'] = $this->Branch_model->get_branch($data['header']['trans_branch_id']);
+        if($data['branch']['branch_url'] == null){
+            $get_branch = $this->Branch_model->get_branch(1);
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
+        }else{
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
+        }
+        $data['journal_item'] = array();
+
+        // Transfer Stok Dokumen
+        $data['location'] = array();
+        if($data['header']['trans_type'] == 2){
+            // $params_journal = array(
+            //     'journal_item_type' => 2,
+            //     'journal_item_trans_id' => $id,
+            //     'journal_item_credit > ' => 0
+            // );
+            // $journal_items = array();
+            // $journal_item = $this->Journal_model->get_all_journal_item($params_journal,null,null,null,'account_name','asc');
+            // foreach($journal_item as $v):
+            //     $journal_items[] = array(
+            //       'journal_item_id' => intval($v['journal_item_id']),
+            //       'journal_item_journal_id' => intval($v['journal_item_journal_id']),
+            //       'journal_item_group_session' => $v['journal_item_group_session'],
+            //       'journal_item_branch_id' => intval($v['journal_item_branch_id']),
+            //       'journal_item_account_id' => intval($v['journal_item_account_id']),
+            //       'journal_item_trans_id' => $v['journal_item_trans_id'],
+            //       'journal_item_date' => $v['journal_item_date'],
+            //       'journal_item_type' => intval($v['journal_item_type']),
+            //       'journal_item_type_name' => $v['journal_item_type_name'],
+            //       'journal_item_debit' => intval($v['journal_item_debit']),
+            //       'journal_item_credit' => intval($v['journal_item_credit']),
+            //       'journal_item_note' => $v['journal_item_note'],
+            //       'journal_item_user_id' => intval($v['journal_item_user_id']),
+            //       'journal_item_date_created' => $v['journal_item_date_created'],
+            //       'journal_item_date_updated' => $v['journal_item_date_updated'],
+            //       'journal_item_flag' => intval($v['journal_item_flag']),
+            //       'journal_item_position' => intval($v['journal_item_position']),
+            //       'journal_item_journal_session' => $v['journal_item_journal_session'],
+            //       'journal_item_session' => $v['journal_item_session'],
+            //       'related' => $this->Journal_model->get_all_journal_item(
+            //         array(
+            //             'journal_item_group_session' => $v['journal_item_group_session'],
+            //             'journal_item_id !=' => $v['journal_item_id']
+            //         ),null,null,null,'account_name','asc')
+            //     );
+            // endforeach;
+            // $data['journal_item'] = $journal_items;
+        }
+
+        //Content
+        $params = array(
+            'trans_item_trans_id' => $id
+        );
+        $search     = null;
+        $limit      = null;
+        $start      = null;
+        $order      = 'trans_item_date_created';
+        $dir        = 'ASC';
+
+        $data['content'] = $this->Transaksi_model->get_all_transaksi_items($params,$search,$limit,$start,$order,$dir);
+
+        $data['result'] = array(
+            'branch' => $data['branch'],
+            'header' => $data['header'],
+            'location' => $data['location'],
+            'content' => $data['content'],
+            'journal' => $data['journal_item'],
+            'footer' => '',
+            'footer' => array(
+                'user_creator' => array(
+                    'user_id' => !empty($data['header']['trans_user_id']) ? $data['header']['user_id'] : '-',
+                    'user_name' => !empty($data['header']['trans_user_id']) ? $data['header']['user_username'] : '-',
+                    'user_phone' => !empty($data['header']['trans_user_id']) ? $data['header']['user_phone_1'] : '-',
+                    'user_email' => !empty($data['header']['trans_user_id']) ? $data['header']['user_email_1'] : '-',
+                ),
+                'user_delivered' => !empty($data['header']['trans_vehicle_person']) ? $this->Kontak_model->get_kontak($data['header']['trans_vehicle_person']): '-'
+            )            
+        );
+
+        // echo json_encode($data['header']);die;
+
+        $session = $this->session->userdata();   
+        $session_branch_id = $session['user_data']['branch']['id'];
+        $session_user_id = $session['user_data']['user_id'];
+        //Aktivitas
+        $params = array(
+            'activity_user_id' => !empty($session_user_id) ? $session_user_id : null,
+            'activity_branch_id' => !empty($session_branch_id) ? $session_branch_id : null,
+            'activity_action' => 6,
+            'activity_table' => 'trans',
+            'activity_table_id' => $id,
+            'activity_text_1' => ucwords(strtolower($data['header']['type_name'])),
+            'activity_text_2' => ucwords(strtolower($data['header']['trans_number'])),
+            'activity_text_3' => ucwords(strtolower($data['header']['contact_name'])),
+            'activity_date_created' => date('YmdHis'),
+            'activity_flag' => 0
+        );
+        $this->save_activity($params);
+
+        $data['say_number'] = !empty($data['header']['trans_total']) ? $this->uppercase($this->say_number($data['header']['trans_total'])) : '-';
+        
+        //Set Layout From Order Type
+        if($data['header']['trans_type']==1){
+            $data['title'] = 'Pembelian';
+            $this->load->view($this->print_directory.'purchase_buy',$data);
+        }
+        else if($data['header']['trans_type']==2){
+            $data['title'] = 'Kwitansi';
+            $this->load->view($this->print_directory.'sales_kwitansi',$data);
+        }
+    }    
 }
 
 ?>

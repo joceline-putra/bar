@@ -12,8 +12,8 @@
     <style>
         @import url('https://fonts.cdnfonts.com/css/dot-matrix');
         body{
-            /* font-family: monospace; */
-            font-family: 'Dot Matrix', sans-serif!important;
+            font-family: monospace;
+            /* font-family: 'Dot Matrix', sans-serif!important; */
         }
         .title{
             font-weight: 800;
@@ -41,7 +41,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <p>
                         <div class="col-xs-3">
-                            <img src="<?php echo $branch_logo; ?>" class="img-responsive" style="width: 134px;">
+                            <!-- <img src="<?php #echo $branch_logo; ?>" class="img-responsive" style="width: 134px;"> -->
                         </div>
                         <div class="col-xs-6">
                             <p style="text-align:center;">
@@ -52,8 +52,8 @@
                             </p>
                         </div>
                         <div class="col-xs-3 text-right">
-                            <b onclick="window.print();" style="cursor:pointer;"><?php echo $title; ?></b><br>
-                            <?php echo $header['trans_number']; ?>
+                            <b onclick="window.print();" style="cursor:pointer;"><?php echo $header['trans_number']; ?></b><br>
+                            
                         </div>          
                         </p>
                     </div>
@@ -71,10 +71,10 @@
                                 <tr><td>Tanggal</td><td class="text-right"><?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></td></tr>
                                 <tr><td>Tanggal Jth Tempo</td><td class="text-right"><?php echo date("d-M-Y", strtotime($header['trans_date_due'])); ?></td></tr>
                                 <!-- <tr><td>Sales</td><td>:</td></tr> -->
-                                <tr><td>Nomor PO Customer</td><td class="text-right"><?php echo $header['trans_ref_number']; ?></td></tr>
-                                <tr><td>Plat Nomor</td><td class="text-right"><?php echo $header['trans_vehicle_plate_number']; ?></td></tr>              
-                                <tr><td>Pembayaran</td><td class="text-right"><?php echo ($header['contact_termin'] == 0) ? ' Cash (COD)' : ' ' . $header['contact_termin'] . ' Hari'; ?></td></tr>
-                                <tr><td>Salesman</td><td class="text-right"><?php echo $header['sales_fullname']; ?></td></tr>                                       
+                                <tr><td>Proyek</td><td class="text-right"><?php echo $header['trans_ref_number']; ?></td></tr>
+                                <!-- <tr><td>Plat Nomor</td><td class="text-right"><?php echo $header['trans_vehicle_plate_number']; ?></td></tr>               -->
+                                <!-- <tr><td>Pembayaran</td><td class="text-right"><?php echo ($header['contact_termin'] == 0) ? ' Cash (COD)' : ' ' . $header['contact_termin'] . ' Hari'; ?></td></tr> -->
+                                <!-- <tr><td>Salesman</td><td class="text-right"><?php echo $header['sales_fullname']; ?></td></tr>                                        -->
                             </table>
                         </div>          
                         </p>

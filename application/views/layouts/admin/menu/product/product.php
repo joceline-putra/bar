@@ -235,7 +235,7 @@
                                             -->                      
                                             <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
 
-                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side" style="margin-top:0px;">
+                                                <div class="hide col-lg-12 col-md-12 col-xs-12 padding-remove-side" style="margin-top:0px;">
                                                     <div class="form-group" style="margin-bottom: 0px;">                     
                                                         <label class="form-label" style="cursor:pointer;"><input id="checkbox_buy" type="checkbox" value="">&nbsp;Saya beli produk ini</label>
                                                         <p style="
@@ -267,7 +267,7 @@
                                                            color: #9e9e9e;
                                                            ">Jika diisi, harga akan muncul saat Penjualan kepada Customer</p>
                                                     </div>
-                                                    <div class="col-md-8 col-xs-12 col-sm-12 padding-remove-side">
+                                                    <div class="hide col-md-8 col-xs-12 col-sm-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Akun Penjualan *</label>
                                                             <select id="account_sell" name="account_sell" class="form-control" disabled>
@@ -283,7 +283,7 @@
                                                     </div>  
                                                 </div>
 
-                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side" style="margin-top:12px;">
+                                                <div class="hide col-lg-12 col-md-12 col-xs-12 padding-remove-side" style="margin-top:12px;">
                                                     <div class="form-group" style="margin-bottom: 0px;">                     
                                                         <label class="form-label" style="cursor:pointer;"><input id="checkbox_inventory" type="checkbox" value="">&nbsp;Monitor Persediaan Stok</label>
                                                         <p style="
@@ -331,7 +331,7 @@
                                                     <li class="active" data-name="tab_price">
                                                         <a href="#" data-name="tab_price" onClick="activeTabDetail('tab_price');"><span class="fas fa-chart-bar"></span> Varian Harga Jual</a>
                                                     </li>                           
-                                                    <li  class="" data-name="tab_recipe">
+                                                    <li class="hide" data-name="tab_recipe">
                                                         <a href="#" data-name="tab_recipe" onClick="activeTabDetail('tab_recipe');"><span class="fas fa-boxes"></span> Resep</a>
                                                     </li>
                                                 </ul>

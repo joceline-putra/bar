@@ -388,7 +388,7 @@
                                                          style="margin-top: 10px;margin-bottom:10px;">
                                                         <div class="form-group">
                                                             <div class="pull-left">
-                                                                <button id="btn-journal" class="btn btn-default btn-small" type="button">
+                                                                <button id="btn-journal" class="hide btn btn-default btn-small" type="button">
                                                                     <i class="fas fa-clipboard-check"></i>
                                                                     Jurnal Entri
                                                                 </button>

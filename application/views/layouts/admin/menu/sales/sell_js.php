@@ -1,15 +1,5 @@
 <script type="text/javascript">
     $(document).ready(function () {
-
-        // $("#modal-trans-print").modal({backdrop: 'static', keyboard: false});  
-        // var konten = '';
-        // konten += 
-        // '- MY_Controller CALL SP journal_from_trans Done, Minus Contact_id, Account_id<br>';
-        // $.alert(konten);
-        // $.alert('JS 1197 Btn-Save-Item, Controller Trans 1065 Move To SP');
-        // $("body").condensMenu();  
-        // $('#sidebar .start .sub-menu').css('display','none');
-        // $("#modal-order").modal({backdrop: 'static', keyboard: false});
         //Identity
         var identity = "<?php echo $identity; ?>";
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
@@ -476,54 +466,54 @@
                 return '<i class="fas fa-user-check ' + datas.id.toLowerCase() + '"></i> ' + datas.text;
             }
         });
-        $('#gudang').select2({
-            placeholder: '--- Pilih ---',
-            minimumInputLength: 0,
-            ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage'); ?>",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    var query = {
-                        search: params.term,
-                        // tipe: 1, //1=Supplier, 2=Asuransi
-                        source: 'locations'
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-                cache: true
-            },
-            escapeMarkup: function (markup) {
-                return markup;
-            },
-            templateResult: function (datas) { //When Select on Click
-                if (!datas.id) {
-                    return datas.text;
-                }
-                if ($.isNumeric(datas.id) == true) {
-                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
-                    return datas.text;
-                } else {
-                    return '<i class="fas fa-warehouse ' + datas.id.toLowerCase() + '"></i> ' + datas.text;
-                }
-            },
-            templateSelection: function (datas) { //When Option on Click
-                if (!datas.id) {
-                    return datas.text;
-                }
-                //Custom Data Attribute
-                // $(datas.element).attr('data-alamat', datas.alamat);
-                // $(datas.element).attr('data-telepon', datas.telepon);
-                // $(datas.element).attr('data-email', datas.email);            
-                return '<i class="fas fa-warehouse ' + datas.id.toLowerCase() + '"></i> ' + datas.text;
-            }
-        });
+        // $('#gudang').select2({
+        //     placeholder: '--- Pilih ---',
+        //     minimumInputLength: 0,
+        //     ajax: {
+        //         type: "get",
+        //         url: "<?= base_url('search/manage'); ?>",
+        //         dataType: 'json',
+        //         delay: 250,
+        //         data: function (params) {
+        //             var query = {
+        //                 search: params.term,
+        //                 // tipe: 1, //1=Supplier, 2=Asuransi
+        //                 source: 'locations'
+        //             }
+        //             return query;
+        //         },
+        //         processResults: function (data) {
+        //             return {
+        //                 results: data
+        //             };
+        //         },
+        //         cache: true
+        //     },
+        //     escapeMarkup: function (markup) {
+        //         return markup;
+        //     },
+        //     templateResult: function (datas) { //When Select on Click
+        //         if (!datas.id) {
+        //             return datas.text;
+        //         }
+        //         if ($.isNumeric(datas.id) == true) {
+        //             // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+        //             return datas.text;
+        //         } else {
+        //             return '<i class="fas fa-warehouse ' + datas.id.toLowerCase() + '"></i> ' + datas.text;
+        //         }
+        //     },
+        //     templateSelection: function (datas) { //When Option on Click
+        //         if (!datas.id) {
+        //             return datas.text;
+        //         }
+        //         //Custom Data Attribute
+        //         // $(datas.element).attr('data-alamat', datas.alamat);
+        //         // $(datas.element).attr('data-telepon', datas.telepon);
+        //         // $(datas.element).attr('data-email', datas.email);            
+        //         return '<i class="fas fa-warehouse ' + datas.id.toLowerCase() + '"></i> ' + datas.text;
+        //     }
+        // });
         $('#produk').select2({
             //dropdownParent:$("#modal-id"), //If Select2 Inside Modal
             placeholder: '<i class="fas fa-boxes"></i> Search',
@@ -2171,12 +2161,12 @@
 
                 }
                 // next=false;
-                if (next == true) {
-                    if ($("#gudang").find(':selected').val() == 0) {
-                        notif(0, 'Gudang harus di pilih dahulu');
-                        next = false;
-                    }
-                }
+                // if (next == true) {
+                //     if ($("#gudang").find(':selected').val() == 0) {
+                //         notif(0, 'Gudang harus di pilih dahulu');
+                //         next = false;
+                //     }
+                // }
             }
 
             if (next == true) {
@@ -4112,11 +4102,10 @@
                                 // dsp += d.result[a]['trans_item_sell_price'];
                                 dsp += '<a href="#" class="btn-change-item-price" data-trans-item-id="' + d.result[a]['trans_item_id'] + '" data-trans-item-price="' + d.result[a]['trans_item_sell_price'] + '">' + d.result[a]['trans_item_sell_price'] + '</a>';
                                 dsp += '</td>';
-                                dsp += '<td style="text-align:left;">' + d.result[a]['location']['location_name'] + '</td>';
-                                dsp += '<td style="text-align:right;">';
-                                // dsp += d.result[a]['trans_item_pack'];
-                                dsp += '<a href="#" class="btn-change-item-pack" data-trans-item-id="' + d.result[a]['trans_item_id'] + '" data-trans-item-pack="' + d.result[a]['trans_item_pack'] + '" data-trans-item-pack-unit="' + d.result[a]['trans_item_pack_unit'] + '">' + d.result[a]['trans_item_pack'] + ' ' + d.result[a]['trans_item_pack_unit'] + '</a>';
-                                dsp += '</td>';
+                                // dsp += '<td style="text-align:left;">' + d.result[a]['location']['location_name'] + '</td>';
+                                // dsp += '<td style="text-align:right;">';
+                                // dsp += '<a href="#" class="btn-change-item-pack" data-trans-item-id="' + d.result[a]['trans_item_id'] + '" data-trans-item-pack="' + d.result[a]['trans_item_pack'] + '" data-trans-item-pack-unit="' + d.result[a]['trans_item_pack_unit'] + '">' + d.result[a]['trans_item_pack'] + ' ' + d.result[a]['trans_item_pack_unit'] + '</a>';
+                                // dsp += '</td>';
                                 dsp += '<td style="text-align:right;">' + addCommas(d.result[a]['trans_item_discount']) + '</td>';
                                 dsp += '<td style="text-align:left;">' + ppn + '</td>';
                                 dsp += '<td style="text-align:right;">' + d.result[a]['trans_item_sell_total'] + '</td>';
@@ -4348,7 +4337,7 @@
                         .not("input[id='tipe']")
                         .not("input[id='tgl']")
                         .not("input[id='tgl_tempo']").val('');
-                $("#form-trans select").val(0).trigger('change');
+                $("#form-trans select").not("select[id='gudang']").val(0).trigger('change');
                 $("select[name='gudang']").attr('disabled', false);
                 $("#form-trans textarea").val('');
             }

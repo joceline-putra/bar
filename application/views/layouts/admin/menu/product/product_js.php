@@ -108,8 +108,8 @@
             "columnDefs": [
                 {"targets": 0, "title": "Kode", "searchable": true, "orderable": true},
                 {"targets": 1, "title": "Nama", "searchable": true, "orderable": true},
-                {"targets": 2, "title": "Stok", "searchable": false, "orderable": true, "className": "text-right"},
-                {"targets": 3, "title": "Harga Beli", "searchable": true, "orderable": true},
+                {"targets": 2, "title": "Satuan", "searchable": false, "orderable": true, "className": "text-right"},
+                {"targets": 3, "title": "Kategori", "searchable": true, "orderable": true},
                 {"targets": 4, "title": "Harga Jual", "searchable": true, "orderable": true},
                 {"targets": 5, "title": "Action", "searchable": false, "orderable": false}
             ],
@@ -173,7 +173,7 @@
                             } else {
                             }
                         } else {
-                            dsp += '-';
+                            dsp += row.product_unit;
                         }
                         return dsp;
                     }
@@ -182,11 +182,12 @@
                     className: 'text-right',
                     render: function (data, meta, row) {
                         var dsp = '';
-                        if (parseFloat(data) > 0) {
-                            dsp += 'Rp. ' + addCommas(row.product_price_buy);
-                        } else {
-                            dsp += '-';
-                        }
+                        // if (parseFloat(data) > 0) {
+                        //     dsp += 'Rp. ' + addCommas(row.product_price_buy);
+                        // } else {
+                        //     dsp += '-';
+                        // }
+                        dsp += row.category_name;
                         return dsp;
                     }
                 }, {
