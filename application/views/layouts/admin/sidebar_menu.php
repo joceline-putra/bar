@@ -220,7 +220,7 @@ $next = true;
                             ?>
                             <li id="report" class="start open"> 
                                 <a href="<?php echo base_url('report'); ?>">
-                                    <span class="material-icons">summarize</span>
+                                    <span class="fas fa-window-restore"></span>
                                     <span class="title">Laporan</span> <span class="selected"></span>
                                 </a>
                                 <ul class="open sub-menu" style="display:block;">
