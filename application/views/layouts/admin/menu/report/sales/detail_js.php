@@ -213,7 +213,7 @@
                 data: function (params) {
                     var query = {
                         search: params.term,
-                        tipe: 1, //1=Supplier, 2=Asuransi
+                        tipe: 2, //1=Supplier, 2=Asuransi
                         category: 1,
                         source: 'products'
                     }

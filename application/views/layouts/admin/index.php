@@ -54,7 +54,7 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<!-- <link href="<?php #echo base_url();?>assets/webarch/css/dark.css" rel="stylesheet" type="text/css"/>	 -->
 	
 	<!-- Icon & Notification -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 	<link href="<?php echo base_url();?>assets/core/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />   
 	<!-- <link href="<?php #echo base_url();?>assets/core/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/> -->
 	<link href="<?php echo base_url();?>assets/core/plugins/jquery-notifications/css/messenger.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -85,7 +85,7 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<link href="<?php echo base_url();?>assets/core/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
 
 	<!-- Third Party -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet">
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet"> -->
 	<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> -->
 	<style>
         .btn_switch_branch{
@@ -507,8 +507,8 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<script src="<?php echo base_url();?>assets/core/plugins/magnific-popup/jquery.magnific-popup.js" type="text/javascript"></script> 
 
 	<!-- Third Party -->    
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>  
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>   -->
 	<script src="<?php echo base_url();?>assets/core/plugins/apexcharts/apexcharts.min.js" type="text/javascript"></script>  	
 	<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>   -->
 	<!-- <script src="<?php #echo base_url();?>assets/webarch/plugins/jquery-qrcode/qrcode.js"></script> -->

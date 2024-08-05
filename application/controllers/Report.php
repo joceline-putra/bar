@@ -2359,31 +2359,64 @@ class Report extends MY_Controller{
 
             $total_data = 0;
             $mdatas = array();
+            $search = !empty($this->input->get('trans_ref_number')) ? $this->input->get('trans_ref_number') : 0;
+            // var_dump($search);die;
             $get_datas = $this->report_finance(5,$date_start,$date_end,$session_branch_id,$contact_id,$search);
             foreach($get_datas as $k => $v):
                 if(intval($v['total_data']) > 0){
-                    $mdatas[] = array(                                 
-                        'temp_id' => $v['temp_id'],
-                        'type_name' => $v['type_name'],
-                        'trans_date' => $v['trans_date'],
-                        'trans_date_due' => $v['trans_date_due'],
-                        'trans_date_due_over' => $v['trans_date_due_over'],                    
-                        'trans_id' => $v['trans_id'],
-                        'trans_note' => $v['trans_note'],
-                        'trans_number' => $v['trans_number'],
-                        'trans_total' => $v['trans_total'],
-                        'trans_total_paid' => $v['trans_total_paid'],
-                        'contact_id' => $v['contact_id'],
-                        'contact_code' => $v['contact_code'],
-                        'contact_name' => $v['contact_name'],
-                        'balance' => $v['balance'],
-                        'trans_date_format' => date("d/m/Y", strtotime($v['trans_date'])),
-                        'trans_date_due_format' => date("d/m/Y", strtotime($v['trans_date_due'])),                                
-                        'status' => $v['status'],
-                        'message' => $v['message'],
-                        'total_data' => $v['total_data']
-                    );
+                    if(intval($search) > 0){
+                        if(!empty($v['trans_ref_number'])){
+                            $mdatas[] = array(
+                                'temp_id' => $v['temp_id'],
+                                'type_name' => $v['type_name'],
+                                'trans_date' => $v['trans_date'],
+                                'trans_date_due' => $v['trans_date_due'],
+                                'trans_date_due_over' => $v['trans_date_due_over'],                    
+                                'trans_id' => $v['trans_id'],
+                                'trans_note' => $v['trans_note'],
+                                'trans_number' => $v['trans_number'],
+                                'trans_total' => $v['trans_total'],
+                                'trans_total_paid' => $v['trans_total_paid'],
+                                'contact_id' => $v['contact_id'],
+                                'contact_code' => $v['contact_code'],
+                                'contact_name' => $v['contact_name'],
+                                'balance' => $v['balance'],
+                                'trans_date_format' => date("d/m/Y", strtotime($v['trans_date'])),
+                                'trans_date_due_format' => date("d/m/Y", strtotime($v['trans_date_due'])),                                
+                                'status' => $v['status'],
+                                'message' => $v['message'],
+                                'total_data' => $v['total_data'],
+                                'trans_ref_number' => $v['trans_ref_number']
+                            );
+                        }else{
+                                                 
+                        }
+                    }else{
+                        $mdatas[] = array(
+                            'temp_id' => $v['temp_id'],
+                            'type_name' => $v['type_name'],
+                            'trans_date' => $v['trans_date'],
+                            'trans_date_due' => $v['trans_date_due'],
+                            'trans_date_due_over' => $v['trans_date_due_over'],                    
+                            'trans_id' => $v['trans_id'],
+                            'trans_note' => $v['trans_note'],
+                            'trans_number' => $v['trans_number'],
+                            'trans_total' => $v['trans_total'],
+                            'trans_total_paid' => $v['trans_total_paid'],
+                            'contact_id' => $v['contact_id'],
+                            'contact_code' => $v['contact_code'],
+                            'contact_name' => $v['contact_name'],
+                            'balance' => $v['balance'],
+                            'trans_date_format' => date("d/m/Y", strtotime($v['trans_date'])),
+                            'trans_date_due_format' => date("d/m/Y", strtotime($v['trans_date_due'])),                                
+                            'status' => $v['status'],
+                            'message' => $v['message'],
+                            'total_data' => $v['total_data'],
+                            'trans_ref_number' => $v['trans_ref_number']
+                        );                               
+                    }
                 }
+                // echo json_encode($mdatas);
                 $total_data = $v['total_data'];
             endforeach;
             if(intval($total_data) > 0){

@@ -150,10 +150,6 @@
         }    
     }
 </style>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <?php include '_navigation.php'; ?>
@@ -599,6 +595,11 @@
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan
                                                                     </a>
                                                                 </li>
+                                                                <li>
+                                                                    <a href="#" class="btn-print-dropdown" data-action="print2">
+                                                                        <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan 2
+                                                                    </a>
+                                                                </li>                                                                
                                                                 <li class="">
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_history">
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan + Riwayat

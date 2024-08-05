@@ -57,7 +57,7 @@
                         <td><b>Tgl Jth Tempo</b></td>                        
                         <td><b>Transaksi</b></td>
                         <td><b>Nomor</b></td>
-                        <td><b>Keterangan</b></td>                     
+                        <td><b>Keterangan / Proyek</b></td>                     
                         <td style="text-align:right;"><b>Tagihan</b></td>
                         <td style="text-align:right;"><b>Dibayar</b></td>                             
                         <td style="text-align:right;"><b>Sisa Piutang</b></td>                     
@@ -98,7 +98,7 @@
                         <td><?php echo $v['trans_date_due_format']; echo ($v['trans_date_due_over'] < 1) ? ' <b>Jatuh Tempo</b>': '';?></td>     
                         <td><?php echo $v['type_name'];?></td>        
                         <td><?php echo $v['trans_number'];?></td>  
-                        <td><?php echo $v['trans_note'];?></td>          
+                        <td><?php echo $v['trans_ref_number'];?><br><?php echo $v['trans_note'];?></td>          
                         <td class="text-right"><?php echo number_format($v['trans_total']);?></td>
                         <td class="text-right"><?php echo number_format($v['trans_total_paid']);?></td>                                                                                  
                         <td class="text-right"><?php echo number_format($v['balance']);?></td>                                        

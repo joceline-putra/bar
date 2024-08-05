@@ -325,7 +325,7 @@
 
                         dsp += '<button class="btn-edit btn btn-mini btn-primary" data-id="' + data + '">';
                         dsp += '<span class="fas fa-edit"></span>Edit';
-                        dsp += '</button>';
+                        dsp += '</button>';                       
                         if (parseInt(row.trans_paid) == 0) {
                             dsp += '&nbsp;<button class="btn-pay btn btn-mini btn-info m-1"'; 
                             dsp += ' data-contact-id="'+row.contact_id+'" data-contact-name="'+row.contact_name+'" data-contact-phone="'+row.contact_phone_1+'" data-contact-address="'+row.contact_address+'"';
@@ -340,6 +340,10 @@
                         dsp += '<span class="fas fa-undo"></span>'; //Retur
                         dsp += '</button>';
 
+                        dsp += '<button class="btn_update_piutang btn btn-mini btn-success" data-id="' + data + '">';
+                        dsp += '<span class="fas fa-refresh"></span>P';
+                        dsp += '</button>'; 
+                        
                         // if(parseInt(row.trans_flag)==1){
                         dsp += '&nbsp;<button class="btn-delete btn btn-mini btn-danger" data-id="' + data + '" data-number="' + row.trans_number + '" data-contact-name="' + row.contact_name + '" data-total="' + row.trans_total + '" data-date="' + row.trans_date_format + '"">';
                         dsp += '<span class="fas fa-trash"></span>'; //Hapus
@@ -347,10 +351,11 @@
                         // }
 
                         if(whatsapp_config == 1){
-                            dsp += '&nbsp;<button class="btn btn-send-whatsapp btn-mini btn-primary"';
-                            dsp += 'data-number="'+row.trans_number+'" data-id="'+data+'" data-total="'+row.trans_total+'" data-date="'+row.trans_date_format+'" data-contact-id="'+row.contact_id+'" data-contact-name="'+row.contact_name+'" data-contact-phone="'+row.contact_phone_1+'">';
-                            dsp += '<span class="fab fa-whatsapp primary"></span></button>';
+                            // dsp += '&nbsp;<button class="btn btn-send-whatsapp btn-mini btn-primary"';
+                            // dsp += 'data-number="'+row.trans_number+'" data-id="'+data+'" data-total="'+row.trans_total+'" data-date="'+row.trans_date_format+'" data-contact-id="'+row.contact_id+'" data-contact-name="'+row.contact_name+'" data-contact-phone="'+row.contact_phone_1+'">';
+                            // dsp += '<span class="fab fa-whatsapp primary"></span></button>';
                         }
+                        
                         // if (parseInt(row.flag) === 1) {
                         //   dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-primary"';
                         //   dsp += 'data-nomor="'+row.trans_nomor+'" data-kode="'+row.kode+'" data-id="'+data+'" data-flag="'+row.trans_flag+'">';
@@ -554,11 +559,11 @@
                     // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
                     // return datas.text;   
                     var location = $("#gudang").find(':selected').val();
-                    if (parseInt(location) > 0) {
+                    // if (parseInt(location) > 0) {
                         return datas.text;
-                    } else {
-                        notif(0, 'Gudang harus dipilih dahulu');
-                    }
+                    // } else {
+                        // notif(0, 'Gudang harus dipilih dahulu');
+                    // }
                 } else {
                     // return '<i class="fas fa-plus '+datas.id.toLowerCase()+'"></i> '+datas.text;          
                 }
@@ -1657,6 +1662,46 @@
                 });
             }
         });
+
+        $(document).on("click", ".btn_update_piutang", function (e) {
+            e.preventDefault();
+            var next = true;
+            var id = $(this).attr('data-id');
+
+            if (next == true) {
+                var prepare = {
+                    tipe: identity,
+                    id: id,
+                }
+                var prepare_data = JSON.stringify(prepare);
+                var data = {
+                    action: 'update_piutang',
+                    data: prepare_data
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    cache: false,
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#btn-update").attr('disabled', true);
+                    },
+                    success: function (d) {
+                        if (parseInt(d.status) == 1) {
+                            notif(1, d.message);
+                            index.ajax.reload(null,false);
+                        } else {
+                            notif(0, d.message);
+                        }
+                        $("#btn-update").attr('disabled', false);
+                    },
+                    error: function (xhr, Status, err) {
+                        notif(0, 'Error');
+                    }
+                });
+            }
+        });        
 
         // Delete Button
         $(document).on("click", ".btn-delete", function () {

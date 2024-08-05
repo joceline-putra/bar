@@ -105,6 +105,37 @@ class Search extends MY_Controller{
                         'text' => 'Buat Kontak Baru'
                     ));
                 }          
+            }else if($source=="trans_ref_number"){
+                if(!empty($terms)){
+                    $query = $this->db->query("
+                        SELECT trans_id AS id, trans_ref_number AS text, trans_ref_number AS nama
+                        FROM trans
+                        WHERE trans_ref_number LIKE '%".$terms."%' AND trans_type=2
+                        GROUP BY trans_ref_number
+                    ");
+                }else{
+                    $query = $this->db->query("
+                        SELECT trans_id AS id, trans_ref_number AS text, trans_ref_number AS nama
+                        FROM trans
+                        WHERE trans_ref_number AND trans_type=2
+                        GROUP BY trans_ref_number
+                        ORDER BY trans_ref_number ASC LIMIT 20
+                    ");                    
+                }
+
+                $result = $query->result();
+                $json = array_push($result,array(
+                    'id' => "0",
+                    'nama' => '-- Ketik yg ingin di cari --',
+                    'text' => '-- Ketik yg ingin di cari --'
+                ));
+                // if($tipe != 3){ //Employee not displayed
+                //     $json = array_push($result,array(
+                //         'id' => "-",
+                //         'nama' => 'Buat Kontak Baru',
+                //         'text' => 'Buat Kontak Baru'
+                //     ));
+                // }          
             }else if($source=="contacts-use-type"){
                 if(!empty($terms)){
                     $query = $this->db->query("
