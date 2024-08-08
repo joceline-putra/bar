@@ -59,11 +59,12 @@
                         <td><b>Nomor</b></td>
                         <td><b><?php echo $contact_alias;?></b></td>
                         <td><b>Keterangan</b></td>              
-                        <td><b>Sales</b></td>         
-                        <td><b>Jatuh Tempo</b></td>                                                
+                        <!-- <td><b>Sales</b></td>          -->
+                        <td><b>Jatuh Tempo</b></td>                                               
+                        <td style="text-align: left;"><b>Wafu</b></td>                           
                         <td style="text-align: right;"><b>Total</b></td>
-                        <td style="text-align: right;"><b>Discount (-)</b></td>
-                        <td style="text-align: right;"><b>Voucher (-)</b></td>                                                
+                        <td style="text-align: right;"><b>Pph (-)</b></td>
+                        <td style="text-align: right;"><b>Ppn (-)</b></td>                                                
                         <td style="text-align: right;"><b>Tagihan</b></td>
                         <td style="text-align: right;"><b>Dibayar</b></td>                        
                         <td style="text-align: right;"><b>Sisa Tagihan</b></td>             
@@ -90,10 +91,11 @@
                      <td><?php echo $num++; ?></td>
                      <td><?php echo $v['trans_date'];?></td>
                      <td><?php echo $v['trans_number'];?></td>
-                     <td><?php echo $v['contact_name'].$contact_address.$contact_phone_1;?></td>  
+                     <!-- <td><?php #echo $v['contact_name'].$contact_address.$contact_phone_1;?></td>   -->
                      <td><?php echo $v['trans_note'];?></td>               
                      <td><?php echo $v['trans_sales_name'];?></td> 
                      <td><?php echo ($v['date_due_over'] > 0) ? $v['date_due_over'].' hari lagi' : '-';?></td>
+                     <td><?php echo $v['trans_wafu'];?></td>                      
                      <td style="text-align:right;"><?php echo number_format($v['trans_total_dpp']);?></td>
                      <td style="text-align:right;"><?php echo number_format($v['trans_discount']);?></td>
                      <td style="text-align:right;"><?php echo number_format($v['trans_voucher']);?></td>                                                                                      

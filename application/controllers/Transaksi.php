@@ -709,6 +709,7 @@ class Transaksi extends MY_Controller{
                         'trans_session' => $this->random_code(20),
                         'trans_sales_id' => !empty($data['trans_sales_id']) ? $data['trans_sales_id'] : null,
                         'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null,
+                        'trans_wafu' => !empty($data['trans_wafu']) ? $data['trans_wafu'] : 0,
                     );
                     // var_dump($params);die;
                     $params['trans_vehicle_person']           = !empty($data['trans_vehicle_person']) ? $data['trans_vehicle_person'] : null;
@@ -1181,7 +1182,8 @@ class Transaksi extends MY_Controller{
                         // 'trans_card_type' => !empty($data['card_type']) ? $data['card_type'] : null,
                         // 'trans_digital_provider' => !empty($data['digital_provider']) ? $data['digital_provider'] : null
                         'trans_sales_id' => !empty($data['trans_sales_id']) ? $data['trans_sales_id'] : null,
-                        'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null
+                        'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null,
+                        'trans_wafu' => !empty($data['trans_wafu']) ? $data['trans_wafu'] : 0,
                     );
                     // var_dump($params);die;
                     $params['trans_vehicle_person']           = !empty($data['trans_vehicle_person']) ? $data['trans_vehicle_person'] : null;

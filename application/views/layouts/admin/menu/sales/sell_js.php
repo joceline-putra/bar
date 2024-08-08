@@ -241,10 +241,20 @@
                         var dsp = '';
                         dsp += '<a class="btn-edit" data-id="' + row.trans_id + '" style="cursor:pointer;">';
                         dsp += '<span class="fas fa-file-alt"></span>&nbsp;' + row.trans_number;
-                        dsp += '</a>';
+                        dsp += '</a>&nbsp;';
                         if (row.trans_ref_number != undefined) {
-                            dsp += '<br>' + row.trans_ref_number;
+                            dsp += '<br>' + row.trans_ref_number+'&nbsp;';
                         }
+                        
+                        if(parseInt(row.trans_wafu) == 1){
+                            dsp += '<label class="label label-primary" style="padding:2px 4px;">WF</label>';
+                        }
+                        else if(parseInt(row.trans_wafu) == 2){
+                            dsp += '<label class="label label-danger" style="padding:2px 4px;">NW</label>';
+                        }else if(parseInt(row.trans_wafu) == 0){
+                            dsp += '<label class="label label-default" style="padding:2px 4px;">-</label>';
+                        }       
+
                         return dsp;
                     }
                 }, {
@@ -269,7 +279,7 @@
                         // dsp += addCommas(row.order_subtotal);
                         dsp += '<a class="btn-trans-item-info" data-id="' + row.trans_id + '" data-session="' + row.trans_session + '" data-trans-number="' + row.trans_number + '" data-contact-name="' + row.contact_name + '" data-trans-type="' + row.trans_type + '" data-type="trans" style="cursor:pointer;">';
                         dsp += addCommas((parseFloat(row.trans_total_dpp) + parseFloat(row.trans_total_ppn)) - parseFloat(row.trans_discount));
-                        dsp += '</a>';
+                        dsp += '</a>';                 
                         return dsp;
                     }
                 }, {
@@ -1339,6 +1349,12 @@
                 }
             }
 
+            if(next==true){
+                if($("select[id='trans_wafu']").find(':selected').val() == 0){
+                    notif(0,'Jenis Pembayaran Ppn harus dipilih dahulu');
+                    next=false;
+                }
+            }   
             // if(next==true){
             //   if($("select[id='gudang']").find(':selected').val() == 0){
             //     notif(0,'Gudang harus dipilih dahulu');
@@ -1373,7 +1389,8 @@
                     trans_vehicle_person: $("#trans_vehicle_person").find(':selected').val(),
                     trans_vehicle_plate_number: $("#trans_vehicle_plate_number").val(),
                     trans_sales_id: $("#trans_sales_id").val(),
-                    trans_person_name: $("#trans_person_name").val()
+                    trans_person_name: $("#trans_person_name").val(),
+                    trans_wafu: $("#trans_wafu").val()
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -1525,6 +1542,7 @@
                                 d.result.contact_code + ' - ' + d.result.contact_name +
                                 '</option>');
                         $("select[name='kontak']").val(d.result.trans_contact_id).trigger('change');
+                        $("select[name='trans_wafu']").val(d.result.trans_wafu).trigger('change');                        
 
                         $("select[id='trans_vehicle_person']").append('' + '<option value="' + d.result_employee.contact_id + '">' + d.result_employee.contact_name + '</option>');
                         $("select[id='trans_vehicle_person']").val(d.result_employee.contact_id).trigger('change');
@@ -1623,7 +1641,8 @@
                     trans_vehicle_person: $("#trans_vehicle_person").find(':selected').val(),
                     trans_vehicle_plate_number: $("#trans_vehicle_plate_number").val(),
                     trans_sales_id: $("#trans_sales_id").val(),
-                    trans_person_name: $("#trans_person_name").val()
+                    trans_person_name: $("#trans_person_name").val(),
+                    trans_wafu: $("#trans_wafu").val()                    
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {

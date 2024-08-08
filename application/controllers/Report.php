@@ -1560,6 +1560,9 @@ class Report extends MY_Controller{
                 //     $order_total = $o['order_subtotal'];
                 //     $get_order_item[] = $this->Order_model->get_all_order_items(array('order_item_order_id'=>$o['order_id']),null,null,null,'order_item_id','asc');
                 // }
+                if($v['trans_wafu'] ==1){ $va = 'WF'; }
+                else if($v['trans_wafu'] ==2){ $va = 'NW';}
+                else{ $va = '-';}                
 
                 $mdatas[] = array(
                     'trans_id' => $v['trans_id'],
@@ -1585,7 +1588,8 @@ class Report extends MY_Controller{
                     // 'trans_change' => $v['trans_change'],        
                     'trans_fee' => $fee,        
                     'order_total' => $order_total,        
-                    'order_item' => $get_order_item                                
+                    'order_item' => $get_order_item,
+                    'trans_wafu' => $va                             
                 );
             }
             // echo json_encode($mdatas);die;
@@ -2386,7 +2390,7 @@ class Report extends MY_Controller{
                                 'status' => $v['status'],
                                 'message' => $v['message'],
                                 'total_data' => $v['total_data'],
-                                'trans_ref_number' => $v['trans_ref_number']
+                                'trans_ref_number' => 0
                             );
                         }else{
                                                  
@@ -2412,7 +2416,7 @@ class Report extends MY_Controller{
                             'status' => $v['status'],
                             'message' => $v['message'],
                             'total_data' => $v['total_data'],
-                            'trans_ref_number' => $v['trans_ref_number']
+                            'trans_ref_number' => 0
                         );                               
                     }
                 }

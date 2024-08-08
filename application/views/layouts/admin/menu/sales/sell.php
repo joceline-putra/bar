@@ -247,6 +247,18 @@
                                                                             </div>
                                                                         </div>
                                                                     </div> 
+                                                                    <div class="col-md-12 col-xs-6 col-sm-12 padding-remove-side prs-5">
+                                                                        <div class="col-md-12 col-xs-12 col-sm-12 form-group prs-5">
+                                                                            <div class="form-group">
+                                                                                <label class="form-label">Jenis Pembayaran Ppn</label>
+                                                                                <select id="trans_wafu" name="trans_wafu" class="form-control">
+                                                                                    <option value="0">Pilih</option>
+                                                                                    <option value="1">Wafu</option>
+                                                                                    <option value="2">Non Wafu</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>                                                                    
                                                                     <div class="hide col-md-12 col-xs-6 col-sm-12 padding-remove-side prs-5">
                                                                         <div class="col-md-12 col-xs-12 col-sm-12 form-group prs-5">
                                                                             <div class="form-group">
@@ -517,7 +529,7 @@
                                                         </div>
                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                           <div class="form-group">
-                                                            <label class="col-md-5 col-xs-12 prs-0 form-label">Diskon Nota</label>
+                                                            <label class="col-md-5 col-xs-12 prs-0 form-label">Pph (2%)</label>
                                                             <div class="col-md-7 col-xs-12 prs-0">
                                                               <input id="total_diskon" name="total_diskon" type="text" value="0" class="form-control" style="text-align:right;"/>
                                                             </div>
@@ -525,7 +537,7 @@
                                                         </div>                                                    
                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                             <div class="form-group">
-                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">Ppn</label>
+                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">Ppn (11%)</label>
                                                                 <div class="col-md-7 col-xs-12 prs-0">
                                                                     <input id="total_ppn" name="total_ppn" type="text" value="0" class="form-control" style="text-align:right;" readonly='true'/>
                                                                 </div>

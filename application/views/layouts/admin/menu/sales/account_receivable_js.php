@@ -1709,9 +1709,19 @@
                                         trans_note = d.result[a]['trans_note'];
                                     }
                                     // console.log('AS'+trans_note);
+                                    var ddd = '';
+                                    if(parseInt(d.result[a]['trans_wafu']) == 1){
+                                        ddd += '<label class="label label-primary" style="padding:2px 4px;">WF</label>';
+                                    }
+                                    else if(parseInt(d.result[a]['trans_wafu']) == 2){
+                                        ddd += '<label class="label label-danger" style="padding:2px 4px;">NW</label>';
+                                    }else if(parseInt(d.result[a]['trans_wafu']) == 0){
+                                        ddd += '<label class="label label-default" style="padding:2px 4px;">-</label>';
+                                    }     
+
                                     var i = a;
                                     dsp += '<tr class="tr-trans-item-id" data-id="' + d.result[a]['trans_id'] + '">';
-                                    dsp += '<td><a class="btn-modal-transaksi" href="#" data-id="' + d.result[a]['trans_id'] + '" data-session="' + d.result[a]['trans_session'] + '"><i class="fas fa-file-alt"></i> ' + d.result[a]['trans_number'] + '</a></td>';
+                                    dsp += '<td><a class="btn-modal-transaksi" href="#" data-id="' + d.result[a]['trans_id'] + '" data-session="' + d.result[a]['trans_session'] + '"><i class="fas fa-file-alt"></i> ' + d.result[a]['trans_number'] + ' '+ddd+'</a></td>';
                                     dsp += '<td style="text-align:left;">' + trans_note + '</td>';
                                     dsp += '<td style="text-align:left;">' + d.result[a]['trans_date_format'] + '<br>' + d.result[a]['trans_date_due_format'] + '</td>';
                                     dsp += '<td style="text-align:right;"><a class="btn-trans-item-info" href="#" data-id="' + d.result[a]['trans_id'] + '" data-contact-name="' + d.result[a]['contact_name'] + '" data-trans-type="2" data-trans-number="' + d.result[a]['trans_number'] + '">Rp. ' + d.result[a]['trans_total'] + '</a></td>';

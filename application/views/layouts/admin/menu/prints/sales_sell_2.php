@@ -87,7 +87,22 @@
                                 <tr><td>Proyek</td><td class="text-right"><?php echo $header['trans_ref_number']; ?></td></tr>
                                 <!-- <tr><td>Plat Nomor</td><td class="text-right"><?php echo $header['trans_vehicle_plate_number']; ?></td></tr>               -->
                                 <!-- <tr><td>Pembayaran</td><td class="text-right"><?php echo ($header['contact_termin'] == 0) ? ' Cash (COD)' : ' ' . $header['contact_termin'] . ' Hari'; ?></td></tr>                                        -->
-                                <!-- <tr><td>Salesman</td><td class="text-right"><?php echo $header['sales_fullname']; ?></td></tr>                     -->
+                                <!-- <tr><td>Salesman</td><td class="text-right"><?php echo $header['sales_fullname']; ?></td></tr>  
+                                               -->
+                                <tr>
+                                    <td>
+                                        <?php 
+                                        if($header['trans_wafu'] == 1){
+                                            echo 'WF';
+                                        }else if($header['trans_wafu'] == 2){
+                                            echo 'NW';
+                                        }else{
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td></td>
+                                </tr>
                             </table>
                         </div>          
                         </p>

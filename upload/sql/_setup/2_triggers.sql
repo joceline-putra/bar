@@ -284,103 +284,103 @@ BEGIN
 END $$
 DELIMITER ;
 
-DELIMITER $$
-DROP TRIGGER IF EXISTS `tr_journal_items_after_delete`$$
-CREATE TRIGGER `tr_journal_items_after_delete` AFTER DELETE ON `journals_items` FOR EACH ROW 
-    BEGIN
-        DECLARE mJOURNAL_ITEM_TYPE INT(5);
-        DECLARE mJOURNAL_ITEM_POSITION INT(5);
-        DECLARE mJOURNAL_ITEM_TRANS_ID BIGINT(50);
-        DECLARE mTRANS_TOTAL DOUBLE(18,2);
-        DECLARE mJOURNAL_TOTAL DOUBLE(18,2);
-        DECLARE mJOURNAL_VOUCHER DOUBLE(18,2) DEFAULT 0;
-        DECLARE mPAID_INTO_TRANS DOUBLE(18,2);
+  DELIMITER $$
+  DROP TRIGGER IF EXISTS `tr_journal_items_after_delete`$$
+  CREATE TRIGGER `tr_journal_items_after_delete` AFTER DELETE ON `journals_items` FOR EACH ROW 
+      BEGIN
+          DECLARE mJOURNAL_ITEM_TYPE INT(5);
+          DECLARE mJOURNAL_ITEM_POSITION INT(5);
+          DECLARE mJOURNAL_ITEM_TRANS_ID BIGINT(50);
+          DECLARE mTRANS_TOTAL DOUBLE(18,2);
+          DECLARE mJOURNAL_TOTAL DOUBLE(18,2);
+          DECLARE mJOURNAL_VOUCHER DOUBLE(18,2) DEFAULT 0;
+          DECLARE mPAID_INTO_TRANS DOUBLE(18,2);
 
-        SET mJOURNAL_ITEM_TYPE = OLD.journal_item_type;
-        SET mJOURNAL_ITEM_POSITION = OLD.journal_item_position;
-        SET mTRANS_TOTAL = 0;
-        SET mJOURNAL_TOTAL = 0;
-        SET mPAID_INTO_TRANS = 0;
-        /*
-        1=BayarHutang,
-        2=BayarPiutang,
-        3=KasMasuk,
-        4=KasKeluar,
-        5=Transfer Uang / MutasiKas,
-        6=UangMukaBeli,
-        7=UangMukaJual,
-        8=JurnalUmum,
-        9=KirimUang,
-        10=Pembelian,
-        11=Penjualan,
-        12=ReturPembelian,
-        13=ReturPenjualan,
-        14=OpnamePlus,
-        15=OpnameMinus,
-        16=AssetBeli,
-        17=AssetSusut,
-        18=AssetJual,
-        */
-        IF mJOURNAL_ITEM_TYPE = 1 THEN /* Bayar Hutang */
-            IF mJOURNAL_ITEM_POSITION = 2 THEN 
-                SET mJOURNAL_ITEM_TRANS_ID = OLD.journal_item_trans_id;
-                SELECT IFNULL(trans_total,0) INTO mTRANS_TOTAL FROM trans WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                SELECT IFNULL(SUM(journal_item_debit),0) INTO mJOURNAL_TOTAL 
-                FROM journals_items WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID AND journal_item_type=1;
-                UPDATE trans SET trans_total_paid=mJOURNAL_TOTAL WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                IF mJOURNAL_TOTAL >= mTRANS_TOTAL THEN
-                    UPDATE trans SET trans_paid=1 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                ELSE 
-                    UPDATE trans SET trans_paid=0 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                END IF;     
-            END IF;
-        ELSEIF mJOURNAL_ITEM_TYPE = 2 THEN /* Bayar Piutang */
-            IF mJOURNAL_ITEM_POSITION = 2 THEN 
-                SET mJOURNAL_ITEM_TRANS_ID = OLD.journal_item_trans_id;
-                SELECT IFNULL(trans_total,0) INTO mTRANS_TOTAL FROM trans WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                SELECT IFNULL(SUM(journal_item_credit),0) INTO mJOURNAL_TOTAL FROM journals_items 
-                WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID AND journal_item_type=2;
-                
-                -- Detect Voucher and Get Account
-                -- SELECT IFNULL(SUM(journal_item_debit),0) INTO mJOURNAL_VOUCHER 
-                -- FROM journals_items LEFT JOIN accounts ON journal_item_account_id=account_id AND account_group=4
-                -- WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID 
-                -- AND journal_item_type=2 
-                -- AND journal_item_position=1;
+          SET mJOURNAL_ITEM_TYPE = OLD.journal_item_type;
+          SET mJOURNAL_ITEM_POSITION = OLD.journal_item_position;
+          SET mTRANS_TOTAL = 0;
+          SET mJOURNAL_TOTAL = 0;
+          SET mPAID_INTO_TRANS = 0;
+          /*
+          1=BayarHutang,
+          2=BayarPiutang,
+          3=KasMasuk,
+          4=KasKeluar,
+          5=Transfer Uang / MutasiKas,
+          6=UangMukaBeli,
+          7=UangMukaJual,
+          8=JurnalUmum,
+          9=KirimUang,
+          10=Pembelian,
+          11=Penjualan,
+          12=ReturPembelian,
+          13=ReturPenjualan,
+          14=OpnamePlus,
+          15=OpnameMinus,
+          16=AssetBeli,
+          17=AssetSusut,
+          18=AssetJual,
+          */
+          IF mJOURNAL_ITEM_TYPE = 1 THEN /* Bayar Hutang */
+              IF mJOURNAL_ITEM_POSITION = 2 THEN 
+                  SET mJOURNAL_ITEM_TRANS_ID = OLD.journal_item_trans_id;
+                  SELECT IFNULL(trans_total,0) INTO mTRANS_TOTAL FROM trans WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  SELECT IFNULL(SUM(journal_item_debit),0) INTO mJOURNAL_TOTAL 
+                  FROM journals_items WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID AND journal_item_type=1;
+                  UPDATE trans SET trans_total_paid=mJOURNAL_TOTAL WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  IF mJOURNAL_TOTAL >= mTRANS_TOTAL THEN
+                      UPDATE trans SET trans_paid=1 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  ELSE 
+                      UPDATE trans SET trans_paid=0 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  END IF;     
+              END IF;
+          ELSEIF mJOURNAL_ITEM_TYPE = 2 THEN /* Bayar Piutang */
+              IF mJOURNAL_ITEM_POSITION = 2 THEN 
+                  SET mJOURNAL_ITEM_TRANS_ID = OLD.journal_item_trans_id;
+                  SELECT IFNULL(trans_total,0) INTO mTRANS_TOTAL FROM trans WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  SELECT IFNULL(SUM(journal_item_credit),0) INTO mJOURNAL_TOTAL FROM journals_items 
+                  WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID AND journal_item_type=2;
+                  
+                  -- Detect Voucher and Get Account
+                  -- SELECT IFNULL(SUM(journal_item_debit),0) INTO mJOURNAL_VOUCHER 
+                  -- FROM journals_items LEFT JOIN accounts ON journal_item_account_id=account_id AND account_group=4
+                  -- WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID 
+                  -- AND journal_item_type=2 
+                  -- AND journal_item_position=1;
 
-                -- IF mJOURNAL_VOUCHER > 0 THEN
-                --   SET mJOURNAL_TOTAL = mJOURNAL_TOTAL - mJOURNAL_VOUCHER;
-                -- END IF;
-                                
-                UPDATE trans SET trans_total_paid=mJOURNAL_TOTAL WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                IF mJOURNAL_TOTAL >= mTRANS_TOTAL THEN
-                    UPDATE trans SET trans_paid=1 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                ELSE 
-                    UPDATE trans SET trans_paid=0, trans_paid_type=0, trans_voucher=0, trans_discount=0, trans_voucher_id=NULL,
-                    trans_change=0, trans_received=0, trans_card_bank_name=NULL, trans_card_expired=NULL  
-                    WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                END IF;     
-            END IF;        
-        ELSEIF mJOURNAL_ITEM_TYPE = 19 THEN /* Biaya di Produksi */
-            -- IF mJOURNAL_ITEM_POSITION = 2 THEN 
-                SET mJOURNAL_ITEM_TRANS_ID = OLD.journal_item_trans_id;
-                SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_TOTAL FROM trans_items 
-                WHERE trans_item_trans_id=mJOURNAL_ITEM_TRANS_ID AND trans_item_position=2;
-                SELECT IFNULL(SUM(journal_item_debit),0) INTO mJOURNAL_TOTAL FROM journals_items 
-                WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID 
-                AND journal_item_type=19 AND journal_item_position=3;
-                
-                SET @mTOTAL_PRODUCTION = mJOURNAL_TOTAL + mTRANS_TOTAL;
-                UPDATE trans SET trans_total_dpp=@mTOTAL_PRODUCTION, trans_total=@mTOTAL_PRODUCTION WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                -- IF mJOURNAL_TOTAL >= mTRANS_TOTAL THEN
-                    -- UPDATE trans SET trans_paid=1 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                -- ELSE 
-                    -- UPDATE trans SET trans_paid=0 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
-                -- END IF;     
-            -- END IF;        
-        END IF;    
-    END$$
-DELIMITER ;
+                  -- IF mJOURNAL_VOUCHER > 0 THEN
+                  --   SET mJOURNAL_TOTAL = mJOURNAL_TOTAL - mJOURNAL_VOUCHER;
+                  -- END IF;
+                                  
+                  UPDATE trans SET trans_total_paid=mJOURNAL_TOTAL WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  IF mJOURNAL_TOTAL >= mTRANS_TOTAL THEN
+                      UPDATE trans SET trans_paid=1 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  ELSE 
+                      UPDATE trans SET trans_paid=0, trans_paid_type=0, trans_voucher=0, trans_discount=0, trans_voucher_id=NULL,
+                      trans_change=0, trans_received=0, trans_card_bank_name=NULL, trans_card_expired=NULL  
+                      WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  END IF;     
+              END IF;        
+          ELSEIF mJOURNAL_ITEM_TYPE = 19 THEN /* Biaya di Produksi */
+              -- IF mJOURNAL_ITEM_POSITION = 2 THEN 
+                  SET mJOURNAL_ITEM_TRANS_ID = OLD.journal_item_trans_id;
+                  SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_TOTAL FROM trans_items 
+                  WHERE trans_item_trans_id=mJOURNAL_ITEM_TRANS_ID AND trans_item_position=2;
+                  SELECT IFNULL(SUM(journal_item_debit),0) INTO mJOURNAL_TOTAL FROM journals_items 
+                  WHERE journal_item_trans_id=mJOURNAL_ITEM_TRANS_ID 
+                  AND journal_item_type=19 AND journal_item_position=3;
+                  
+                  SET @mTOTAL_PRODUCTION = mJOURNAL_TOTAL + mTRANS_TOTAL;
+                  UPDATE trans SET trans_total_dpp=@mTOTAL_PRODUCTION, trans_total=@mTOTAL_PRODUCTION WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  -- IF mJOURNAL_TOTAL >= mTRANS_TOTAL THEN
+                      -- UPDATE trans SET trans_paid=1 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  -- ELSE 
+                      -- UPDATE trans SET trans_paid=0 WHERE trans_id=mJOURNAL_ITEM_TRANS_ID;
+                  -- END IF;     
+              -- END IF;        
+          END IF;    
+      END$$
+  DELIMITER ;
 
 DELIMITER $$
 DROP TRIGGER IF EXISTS `tr_journal_items_after_insert`$$
@@ -1024,11 +1024,18 @@ CREATE TRIGGER `tr_trans_before_insert` BEFORE INSERT ON `trans` FOR EACH ROW
     DECLARE mTRANS_TOTAL_DPP DOUBLE(18,2);
     DECLARE mTRANS_RETURN DOUBLE(18,2);
 
+    IF NEW.trans_wafu = 1 THEN 
+      SET NEW.trans_voucher = NEW.trans_total_ppn;
+      SET mTRANS_VOUCHER = NEW.trans_total_ppn;      
+    ELSE 
+      SET mTRANS_VOUCHER = 0.00;
+    END IF;
+    
     SET mTRANS_ID = NEW.trans_id;
     SET mTRANS_TYPE = NEW.trans_type;
     SET mTRANS_LOCATION = NEW.trans_location_id;
     SET mTRANS_DISCOUNT = NEW.trans_discount;
-    SET mTRANS_VOUCHER = NEW.trans_voucher;
+    -- SET mTRANS_VOUCHER = NEW.trans_voucher;
     SET mTRANS_RETURN = NEW.trans_return; 
     SET mTRANS_TOTAL = NEW.trans_total;
     SET mTRANS_TOTAL_DPP = NEW.trans_total_dpp;
@@ -1072,11 +1079,19 @@ CREATE TRIGGER `tr_trans_before_update` BEFORE UPDATE ON `trans` FOR EACH ROW
     DECLARE mPRODUCTION_COST DOUBLE(18,2);
     DECLARE mTRANS_PAID INT(5);
 
+    IF NEW.trans_wafu = 1 THEN 
+      SET NEW.trans_voucher = NEW.trans_total_ppn;
+      SET mTRANS_VOUCHER = NEW.trans_total_ppn;      
+    ELSE 
+      -- SET mTRANS_VOUCHER = 0;
+      SET NEW.trans_voucher = 0;
+    END IF;
+
     SET mTRANS_ID = NEW.trans_id;
     SET mTRANS_TYPE = NEW.trans_type;
     SET mTRANS_LOCATION = NEW.trans_location_id;
     SET mTRANS_DISCOUNT = NEW.trans_discount;
-    SET mTRANS_VOUCHER = NEW.trans_voucher;
+    -- SET mTRANS_VOUCHER = NEW.trans_voucher;
     SET mTRANS_RETURN = NEW.trans_return; 
     SET mTRANS_TOTAL = NEW.trans_total;
     SET mTRANS_TOTAL_DPP = NEW.trans_total_dpp;
@@ -1125,7 +1140,7 @@ CREATE TRIGGER `tr_trans_before_update` BEFORE UPDATE ON `trans` FOR EACH ROW
       SELECT contact_name INTO @mCONTACT_NAME FROM contacts WHERE contact_id=NEW.trans_sales_id;
       SET NEW.trans_sales_name=@mCONTACT_NAME;
     END IF;
-    
+
   END$$
 DELIMITER ;
 
@@ -1377,115 +1392,115 @@ CREATE TRIGGER `tr_trans_items_after_insert` AFTER INSERT ON `trans_items` FOR E
   END$$
 DELIMITER ;
 
-DELIMITER $$
-DROP TRIGGER IF EXISTS `tr_trans_items_after_update`$$
-CREATE TRIGGER `tr_trans_items_after_update` AFTER UPDATE ON `trans_items` FOR EACH ROW 
-  BEGIN
-    DECLARE mTRANS_ITEM_TYPE INT(5);
-    DECLARE mTRANS_ITEM_ID BIGINT(50);
-    DECLARE mTRANS_ITEM_TOTAL_DPP DOUBLE(18,2) DEFAULT 0;
-    DECLARE mTRANS_ITEM_TOTAL_PPN DOUBLE(18,2) DEFAULT 0;
-    DECLARE mTRANS_ITEM_DISCOUNT DOUBLE(18,2) DEFAULT 0;
-    DECLARE mTRANS_ITEM_TOTAL DOUBLE(18,2) DEFAULT 0;
-    DECLARE mTRANS_ITEM_PPN INT(5);
-    DECLARE mTRANS_ITEM_PRODUCT_ID BIGINT(50);
-    DECLARE mTRANS_ITEM_FLAG INT(5);
-    
-    SET mTRANS_ITEM_TYPE = NEW.trans_item_type;
-    SET mTRANS_ITEM_ID = NEW.trans_item_trans_id;
-    SET mTRANS_ITEM_PPN = NEW.trans_item_ppn;
-    SET mTRANS_ITEM_TOTAL = 0;
-    SET mTRANS_ITEM_PRODUCT_ID = NEW.trans_item_product_id; 
-    SET mTRANS_ITEM_FLAG = NEW.trans_item_flag;
-    /*
-      1=Pembelian
-      2=Penjualan
-      3=ReturPembelian
-      4=ReturPenjualan
-      5=MutasiGudang
-      6=StokOpnamePlus
-      7=StokOpnameMinus
-    */  
-    IF mTRANS_ITEM_ID IS NOT NULL THEN
-      IF mTRANS_ITEM_TYPE = 1 THEN /* Pembelian */
-        SELECT 
-        IFNULL(SUM(trans_item_total),0),        
-        IFNULL(SUM((trans_item_in_price * trans_item_in_qty) * (trans_item_ppn_value / 100)),0)
-        INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_TOTAL_PPN    
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id;
-      ELSEIF mTRANS_ITEM_TYPE = 2 THEN /* Penjualan */
-        SELECT 
-        IFNULL(SUM(trans_item_sell_total),0),
-        IFNULL(SUM(trans_item_discount),0) 
-        INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_DISCOUNT  
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id;   
-
-        /* Cari Produk yg ber Ppn Saja*/
-        SELECT IFNULL(SUM(trans_item_sell_total * (trans_item_ppn_value / 100)),0) INTO mTRANS_ITEM_TOTAL_PPN   
-        FROM trans_items WHERE trans_item_trans_id=NEW.trans_item_trans_id AND trans_item_ppn=1;              
-        -- SELECT IFNULL(SUM(trans_item_sell_total),0) INTO mTRANS_ITEM_TOTAL     
-        -- FROM trans_items 
-        -- WHERE trans_item_trans_id=NEW.trans_item_trans_id;
-      ELSEIF mTRANS_ITEM_TYPE = 3 THEN /* Retur Beli */
-        SELECT 
-        IFNULL(SUM(trans_item_total),0),        
-        IFNULL(SUM((trans_item_out_price * trans_item_out_qty) * (trans_item_ppn_value / 100)),0)
-        INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_TOTAL_PPN    
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id;
-      ELSEIF mTRANS_ITEM_TYPE = 4 THEN /* Retur Jual */
-        SELECT 
-        IFNULL(SUM(trans_item_total),0),        
-        IFNULL(SUM((trans_item_sell_price * trans_item_in_qty) * (trans_item_ppn_value / 100)),0)
-        INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_TOTAL_PPN    
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id;        
-      ELSEIF mTRANS_ITEM_TYPE = 6 THEN /* Stock Opname Plus */
-        SELECT 
-        IFNULL(SUM(trans_item_in_price * trans_item_in_qty),0) INTO mTRANS_ITEM_TOTAL_DPP    
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id;      
-      ELSEIF mTRANS_ITEM_TYPE = 5 THEN /* Transfer Stock */
-        SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_ITEM_TOTAL_DPP 
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id
-        AND trans_item_position = 2; -- Get Cost of Raw Material
-        -- SET mTRANS_ITEM_TOTAL = 123;   
-      ELSEIF mTRANS_ITEM_TYPE = 8 THEN /* Produksi */
-        SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_ITEM_TOTAL_DPP 
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id
-        AND trans_item_position = 2; -- Get Cost of Raw Material
-        -- SET mTRANS_ITEM_TOTAL = 123;   
-      ELSE 
-        SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_ITEM_TOTAL_DPP    
-        FROM trans_items 
-        WHERE trans_item_trans_id=NEW.trans_item_trans_id;    
-      END IF;
+  DELIMITER $$
+  DROP TRIGGER IF EXISTS `tr_trans_items_after_update`$$
+  CREATE TRIGGER `tr_trans_items_after_update` AFTER UPDATE ON `trans_items` FOR EACH ROW 
+    BEGIN
+      DECLARE mTRANS_ITEM_TYPE INT(5);
+      DECLARE mTRANS_ITEM_ID BIGINT(50);
+      DECLARE mTRANS_ITEM_TOTAL_DPP DOUBLE(18,2) DEFAULT 0;
+      DECLARE mTRANS_ITEM_TOTAL_PPN DOUBLE(18,2) DEFAULT 0;
+      DECLARE mTRANS_ITEM_DISCOUNT DOUBLE(18,2) DEFAULT 0;
+      DECLARE mTRANS_ITEM_TOTAL DOUBLE(18,2) DEFAULT 0;
+      DECLARE mTRANS_ITEM_PPN INT(5);
+      DECLARE mTRANS_ITEM_PRODUCT_ID BIGINT(50);
+      DECLARE mTRANS_ITEM_FLAG INT(5);
       
-      /* Trans Has Discount
-      IF mTRANS_ITEM_DISCOUNT > 0 THEN
-        SET mTRANS_ITEM_TOTAL_DPP = mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_DISCOUNT;
-      END IF; */
+      SET mTRANS_ITEM_TYPE = NEW.trans_item_type;
+      SET mTRANS_ITEM_ID = NEW.trans_item_trans_id;
+      SET mTRANS_ITEM_PPN = NEW.trans_item_ppn;
+      SET mTRANS_ITEM_TOTAL = 0;
+      SET mTRANS_ITEM_PRODUCT_ID = NEW.trans_item_product_id; 
+      SET mTRANS_ITEM_FLAG = NEW.trans_item_flag;
+      /*
+        1=Pembelian
+        2=Penjualan
+        3=ReturPembelian
+        4=ReturPenjualan
+        5=MutasiGudang
+        6=StokOpnamePlus
+        7=StokOpnameMinus
+      */  
+      IF mTRANS_ITEM_ID IS NOT NULL THEN
+        IF mTRANS_ITEM_TYPE = 1 THEN /* Pembelian */
+          SELECT 
+          IFNULL(SUM(trans_item_total),0),        
+          IFNULL(SUM((trans_item_in_price * trans_item_in_qty) * (trans_item_ppn_value / 100)),0)
+          INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_TOTAL_PPN    
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id;
+        ELSEIF mTRANS_ITEM_TYPE = 2 THEN /* Penjualan */
+          SELECT 
+          IFNULL(SUM(trans_item_sell_total),0),
+          IFNULL(SUM(trans_item_discount),0) 
+          INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_DISCOUNT  
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id;   
 
-      /* Update Total to Trans */
-      SET mTRANS_ITEM_TOTAL = mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_TOTAL_PPN;
-      UPDATE trans 
-      SET 
-        trans_total_dpp=mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_DISCOUNT, 
-        trans_total_ppn=mTRANS_ITEM_TOTAL_PPN
-        -- trans_discount=mTRANS_ITEM_DISCOUNT 
-      WHERE trans_id=NEW.trans_item_trans_id;
-      
-      /* Re Calculate Product Stock */
-      IF mTRANS_ITEM_FLAG = 1 THEN
-        CALL sp_product_stock_update(mTRANS_ITEM_PRODUCT_ID);
-      END IF;
-    END IF; 
-  END$$
-DELIMITER ;
+          /* Cari Produk yg ber Ppn Saja*/
+          SELECT IFNULL(SUM(trans_item_sell_total * (trans_item_ppn_value / 100)),0) INTO mTRANS_ITEM_TOTAL_PPN   
+          FROM trans_items WHERE trans_item_trans_id=NEW.trans_item_trans_id AND trans_item_ppn=1;              
+          -- SELECT IFNULL(SUM(trans_item_sell_total),0) INTO mTRANS_ITEM_TOTAL     
+          -- FROM trans_items 
+          -- WHERE trans_item_trans_id=NEW.trans_item_trans_id;
+        ELSEIF mTRANS_ITEM_TYPE = 3 THEN /* Retur Beli */
+          SELECT 
+          IFNULL(SUM(trans_item_total),0),        
+          IFNULL(SUM((trans_item_out_price * trans_item_out_qty) * (trans_item_ppn_value / 100)),0)
+          INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_TOTAL_PPN    
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id;
+        ELSEIF mTRANS_ITEM_TYPE = 4 THEN /* Retur Jual */
+          SELECT 
+          IFNULL(SUM(trans_item_total),0),        
+          IFNULL(SUM((trans_item_sell_price * trans_item_in_qty) * (trans_item_ppn_value / 100)),0)
+          INTO mTRANS_ITEM_TOTAL_DPP, mTRANS_ITEM_TOTAL_PPN    
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id;        
+        ELSEIF mTRANS_ITEM_TYPE = 6 THEN /* Stock Opname Plus */
+          SELECT 
+          IFNULL(SUM(trans_item_in_price * trans_item_in_qty),0) INTO mTRANS_ITEM_TOTAL_DPP    
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id;      
+        ELSEIF mTRANS_ITEM_TYPE = 5 THEN /* Transfer Stock */
+          SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_ITEM_TOTAL_DPP 
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id
+          AND trans_item_position = 2; -- Get Cost of Raw Material
+          -- SET mTRANS_ITEM_TOTAL = 123;   
+        ELSEIF mTRANS_ITEM_TYPE = 8 THEN /* Produksi */
+          SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_ITEM_TOTAL_DPP 
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id
+          AND trans_item_position = 2; -- Get Cost of Raw Material
+          -- SET mTRANS_ITEM_TOTAL = 123;   
+        ELSE 
+          SELECT IFNULL(SUM(trans_item_total),0) INTO mTRANS_ITEM_TOTAL_DPP    
+          FROM trans_items 
+          WHERE trans_item_trans_id=NEW.trans_item_trans_id;    
+        END IF;
+        
+        /* Trans Has Discount
+        IF mTRANS_ITEM_DISCOUNT > 0 THEN
+          SET mTRANS_ITEM_TOTAL_DPP = mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_DISCOUNT;
+        END IF; */
+
+        /* Update Total to Trans */
+        SET mTRANS_ITEM_TOTAL = mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_TOTAL_PPN;
+        UPDATE trans 
+        SET 
+          trans_total_dpp=mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_DISCOUNT, 
+          trans_total_ppn=mTRANS_ITEM_TOTAL_PPN
+          -- trans_discount=mTRANS_ITEM_DISCOUNT 
+        WHERE trans_id=NEW.trans_item_trans_id;
+        
+        /* Re Calculate Product Stock */
+        IF mTRANS_ITEM_FLAG = 1 THEN
+          CALL sp_product_stock_update(mTRANS_ITEM_PRODUCT_ID);
+        END IF;
+      END IF; 
+    END$$
+  DELIMITER ;
 
 DELIMITER $$
 DROP TRIGGER IF EXISTS `tr_trans_items_before_insert`$$
