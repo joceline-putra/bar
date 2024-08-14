@@ -241,10 +241,20 @@
                         var dsp = '';
                         dsp += '<a class="btn-edit" data-id="' + row.trans_id + '" style="cursor:pointer;">';
                         dsp += '<span class="fas fa-file-alt"></span>&nbsp;' + row.trans_number;
-                        dsp += '</a>';
+                        dsp += '</a>&nbsp;';
                         if (row.trans_ref_number != undefined) {
-                            dsp += '<br>' + row.trans_ref_number;
+                            dsp += '<br>' + row.trans_ref_number+'&nbsp;';
                         }
+                        
+                        if(parseInt(row.trans_wafu) == 1){
+                            dsp += '<label class="label label-primary" style="padding:2px 4px;">WF</label>';
+                        }
+                        else if(parseInt(row.trans_wafu) == 2){
+                            dsp += '<label class="label label-danger" style="padding:2px 4px;">NW</label>';
+                        }else if(parseInt(row.trans_wafu) == 0){
+                            dsp += '<label class="label label-default" style="padding:2px 4px;">-</label>';
+                        }       
+
                         return dsp;
                     }
                 }, {
@@ -269,7 +279,7 @@
                         // dsp += addCommas(row.order_subtotal);
                         dsp += '<a class="btn-trans-item-info" data-id="' + row.trans_id + '" data-session="' + row.trans_session + '" data-trans-number="' + row.trans_number + '" data-contact-name="' + row.contact_name + '" data-trans-type="' + row.trans_type + '" data-type="trans" style="cursor:pointer;">';
                         dsp += addCommas((parseFloat(row.trans_total_dpp) + parseFloat(row.trans_total_ppn)) - parseFloat(row.trans_discount));
-                        dsp += '</a>';
+                        dsp += '</a>';                 
                         return dsp;
                     }
                 }, {
@@ -325,7 +335,7 @@
 
                         dsp += '<button class="btn-edit btn btn-mini btn-primary" data-id="' + data + '">';
                         dsp += '<span class="fas fa-edit"></span>Edit';
-                        dsp += '</button>';
+                        dsp += '</button>';                       
                         if (parseInt(row.trans_paid) == 0) {
                             dsp += '&nbsp;<button class="btn-pay btn btn-mini btn-info m-1"'; 
                             dsp += ' data-contact-id="'+row.contact_id+'" data-contact-name="'+row.contact_name+'" data-contact-phone="'+row.contact_phone_1+'" data-contact-address="'+row.contact_address+'"';
@@ -340,6 +350,10 @@
                         dsp += '<span class="fas fa-undo"></span>'; //Retur
                         dsp += '</button>';
 
+                        dsp += '<button class="btn_update_piutang btn btn-mini btn-success" data-id="' + data + '">';
+                        dsp += '<span class="fas fa-refresh"></span>P';
+                        dsp += '</button>'; 
+                        
                         // if(parseInt(row.trans_flag)==1){
                         dsp += '&nbsp;<button class="btn-delete btn btn-mini btn-danger" data-id="' + data + '" data-number="' + row.trans_number + '" data-contact-name="' + row.contact_name + '" data-total="' + row.trans_total + '" data-date="' + row.trans_date_format + '"">';
                         dsp += '<span class="fas fa-trash"></span>'; //Hapus
@@ -347,10 +361,11 @@
                         // }
 
                         if(whatsapp_config == 1){
-                            dsp += '&nbsp;<button class="btn btn-send-whatsapp btn-mini btn-primary"';
-                            dsp += 'data-number="'+row.trans_number+'" data-id="'+data+'" data-total="'+row.trans_total+'" data-date="'+row.trans_date_format+'" data-contact-id="'+row.contact_id+'" data-contact-name="'+row.contact_name+'" data-contact-phone="'+row.contact_phone_1+'">';
-                            dsp += '<span class="fab fa-whatsapp primary"></span></button>';
+                            // dsp += '&nbsp;<button class="btn btn-send-whatsapp btn-mini btn-primary"';
+                            // dsp += 'data-number="'+row.trans_number+'" data-id="'+data+'" data-total="'+row.trans_total+'" data-date="'+row.trans_date_format+'" data-contact-id="'+row.contact_id+'" data-contact-name="'+row.contact_name+'" data-contact-phone="'+row.contact_phone_1+'">';
+                            // dsp += '<span class="fab fa-whatsapp primary"></span></button>';
                         }
+                        
                         // if (parseInt(row.flag) === 1) {
                         //   dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-primary"';
                         //   dsp += 'data-nomor="'+row.trans_nomor+'" data-kode="'+row.kode+'" data-id="'+data+'" data-flag="'+row.trans_flag+'">';
@@ -554,11 +569,11 @@
                     // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
                     // return datas.text;   
                     var location = $("#gudang").find(':selected').val();
-                    if (parseInt(location) > 0) {
+                    // if (parseInt(location) > 0) {
                         return datas.text;
-                    } else {
-                        notif(0, 'Gudang harus dipilih dahulu');
-                    }
+                    // } else {
+                        // notif(0, 'Gudang harus dipilih dahulu');
+                    // }
                 } else {
                     // return '<i class="fas fa-plus '+datas.id.toLowerCase()+'"></i> '+datas.text;          
                 }
@@ -1334,6 +1349,12 @@
                 }
             }
 
+            if(next==true){
+                if($("select[id='trans_wafu']").find(':selected').val() == 0){
+                    notif(0,'Jenis Pembayaran Ppn harus dipilih dahulu');
+                    next=false;
+                }
+            }   
             // if(next==true){
             //   if($("select[id='gudang']").find(':selected').val() == 0){
             //     notif(0,'Gudang harus dipilih dahulu');
@@ -1368,7 +1389,8 @@
                     trans_vehicle_person: $("#trans_vehicle_person").find(':selected').val(),
                     trans_vehicle_plate_number: $("#trans_vehicle_plate_number").val(),
                     trans_sales_id: $("#trans_sales_id").val(),
-                    trans_person_name: $("#trans_person_name").val()
+                    trans_person_name: $("#trans_person_name").val(),
+                    trans_wafu: $("#trans_wafu").val()
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -1520,6 +1542,7 @@
                                 d.result.contact_code + ' - ' + d.result.contact_name +
                                 '</option>');
                         $("select[name='kontak']").val(d.result.trans_contact_id).trigger('change');
+                        $("select[name='trans_wafu']").val(d.result.trans_wafu).trigger('change');                        
 
                         $("select[id='trans_vehicle_person']").append('' + '<option value="' + d.result_employee.contact_id + '">' + d.result_employee.contact_name + '</option>');
                         $("select[id='trans_vehicle_person']").val(d.result_employee.contact_id).trigger('change');
@@ -1618,7 +1641,8 @@
                     trans_vehicle_person: $("#trans_vehicle_person").find(':selected').val(),
                     trans_vehicle_plate_number: $("#trans_vehicle_plate_number").val(),
                     trans_sales_id: $("#trans_sales_id").val(),
-                    trans_person_name: $("#trans_person_name").val()
+                    trans_person_name: $("#trans_person_name").val(),
+                    trans_wafu: $("#trans_wafu").val()                    
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -1657,6 +1681,46 @@
                 });
             }
         });
+
+        $(document).on("click", ".btn_update_piutang", function (e) {
+            e.preventDefault();
+            var next = true;
+            var id = $(this).attr('data-id');
+
+            if (next == true) {
+                var prepare = {
+                    tipe: identity,
+                    id: id,
+                }
+                var prepare_data = JSON.stringify(prepare);
+                var data = {
+                    action: 'update_piutang',
+                    data: prepare_data
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    cache: false,
+                    dataType: "json",
+                    beforeSend: function () {
+                        $("#btn-update").attr('disabled', true);
+                    },
+                    success: function (d) {
+                        if (parseInt(d.status) == 1) {
+                            notif(1, d.message);
+                            index.ajax.reload(null,false);
+                        } else {
+                            notif(0, d.message);
+                        }
+                        $("#btn-update").attr('disabled', false);
+                    },
+                    error: function (xhr, Status, err) {
+                        notif(0, 'Error');
+                    }
+                });
+            }
+        });        
 
         // Delete Button
         $(document).on("click", ".btn-delete", function () {

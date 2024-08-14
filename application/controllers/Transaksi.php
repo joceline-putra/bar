@@ -709,6 +709,7 @@ class Transaksi extends MY_Controller{
                         'trans_session' => $this->random_code(20),
                         'trans_sales_id' => !empty($data['trans_sales_id']) ? $data['trans_sales_id'] : null,
                         'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null,
+                        'trans_wafu' => !empty($data['trans_wafu']) ? $data['trans_wafu'] : 0,
                     );
                     // var_dump($params);die;
                     $params['trans_vehicle_person']           = !empty($data['trans_vehicle_person']) ? $data['trans_vehicle_person'] : null;
@@ -1181,7 +1182,8 @@ class Transaksi extends MY_Controller{
                         // 'trans_card_type' => !empty($data['card_type']) ? $data['card_type'] : null,
                         // 'trans_digital_provider' => !empty($data['digital_provider']) ? $data['digital_provider'] : null
                         'trans_sales_id' => !empty($data['trans_sales_id']) ? $data['trans_sales_id'] : null,
-                        'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null
+                        'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null,
+                        'trans_wafu' => !empty($data['trans_wafu']) ? $data['trans_wafu'] : 0,
                     );
                     // var_dump($params);die;
                     $params['trans_vehicle_person']           = !empty($data['trans_vehicle_person']) ? $data['trans_vehicle_person'] : null;
@@ -1293,6 +1295,24 @@ class Transaksi extends MY_Controller{
                             $return->message='Berhasil memperbarui';
                         }
                     }
+                    break;
+                case "update_piutang":
+                    $next = true;
+                    $post_data = $this->input->post('data');
+                    $data = json_decode($post_data, TRUE);
+                    $trans_id = $data['id'];                    
+                    // $trans_id= !(empty($data['id']) ? $data['id'] : 0);
+                    if(intval($trans_id) > 0){
+                        //Set To Journal
+                        if($config_post_to_journal==true){
+                            $operator = $this->journal_for_transaction('update',$trans_id);
+                            $return->trans_id = 1;
+                        }
+                        $return->status = 1;
+                        $return->message = 'Berhasil memperbarui';
+                    }else{
+                        $return->message = 'Gagal, silahkan diulangi';
+                    }           
                     break;
                 case "update-production":
                     $post_data = $this->input->post('data');
@@ -4783,6 +4803,240 @@ class Transaksi extends MY_Controller{
             $data['title'] = 'Retur Penjualan';
             $this->load->view($this->print_directory.'sales_return',$data);
         }        
+        // else if($data['header']['trans_type']==4){
+        //     $data['title'] = 'Checkup Medicine';
+        //     $this->load->view($this->print_directory.'checkup_medicine',$data);
+        // }
+        // else if($data['header']['trans_type']==5){
+        //     $data['title'] = 'Checkup Laboratory';
+        //     $this->load->view($this->print_directory.'checkup_laboratory',$data);
+        // }
+        else if($data['header']['trans_type']==5){
+            $data['title'] = 'Transfer Stok';
+            $this->load->view($this->print_directory.'inventory_transfer_stock',$data);
+        }
+        else if($data['header']['trans_type']==6){
+            $data['title'] = 'Stok Opname +';
+            $this->load->view($this->print_directory.'inventory_stock_opname_plus',$data);
+        }
+        else if($data['header']['trans_type']==7){
+            $data['title'] = 'Stok Opname -';
+            $this->load->view($this->print_directory.'inventory_stock_opname_minus',$data);
+        }
+        else if($data['header']['trans_type']==8){
+            $data['title'] = 'Produksi';
+            $this->load->view($this->print_directory.'production_production',$data);
+        }
+        else if($data['header']['trans_type']==9){
+            $data['title'] = 'Pemakaian Barang';
+            $this->load->view($this->print_directory.'inventory_goods_out',$data);
+        }
+        else if($data['header']['trans_type']==10){
+            $data['title'] = 'Pemasukan Barang';
+            $this->load->view($this->print_directory.'inventory_goods_in',$data);
+        }
+        else{
+            // $this->load->view('prints/sales_order',$data);
+        }
+    } 
+    function print2($session){ //Standard Print Session
+        //Header
+        $params = array(
+            'trans_session' => $session
+        );
+        // $get_header = $this->Order_model->get_all_orders($params,null,null,null,null,null);
+        // $data['header'] = array(
+        //     'order_number' => $get_header['order_number'],
+        //     'contact_name' => $get_header['contact_name'],
+        //     'ref_name' => $get_header['ref_name']
+        // );
+        $data['header'] = $this->Transaksi_model->get_transaksi_custom($params);
+        $id = $data['header']['trans_id'];
+        // var_dump($data['header']);die;
+        $data['branch'] = $this->Branch_model->get_branch($data['header']['trans_branch_id']);
+        if($data['branch']['branch_url'] == null){
+            $get_branch = $this->Branch_model->get_branch(1);
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
+        }else{
+            $data['branch_logo'] = !empty($data['branch']['branch_url']) ? site_url().$data['branch']['branch_url'] : site_url().'upload/branch/default_sidebar.png';
+        }
+        $data['journal_item'] = array();
+
+        // Transfer Stok Dokumen
+        $data['location'] = array();
+        if($data['header']['trans_type'] == 1){
+            $params_journal = array(
+                'journal_item_type' => 1,
+                'journal_item_trans_id' => $id,
+                'journal_item_debit > ' => 0
+            );
+            $journal_items = array();
+            $journal_item = $this->Journal_model->get_all_journal_item($params_journal,null,null,null,'account_name','asc');
+            // $location_to = $this->Lokasi_model->get_lokasi($data['header']['trans_location_to_id']);
+            foreach($journal_item as $v):
+                $journal_items[] = array(
+                  'journal_item_id' => intval($v['journal_item_id']),
+                  'journal_item_journal_id' => intval($v['journal_item_journal_id']),
+                  'journal_item_group_session' => $v['journal_item_group_session'],
+                  'journal_item_branch_id' => intval($v['journal_item_branch_id']),
+                  'journal_item_account_id' => intval($v['journal_item_account_id']),
+                  'journal_item_trans_id' => $v['journal_item_trans_id'],
+                  'journal_item_date' => $v['journal_item_date'],
+                  'journal_item_type' => intval($v['journal_item_type']),
+                  'journal_item_type_name' => $v['journal_item_type_name'],
+                  'journal_item_debit' => intval($v['journal_item_debit']),
+                  'journal_item_credit' => intval($v['journal_item_credit']),
+                  'journal_item_note' => $v['journal_item_note'],
+                  'journal_item_user_id' => intval($v['journal_item_user_id']),
+                  'journal_item_date_created' => $v['journal_item_date_created'],
+                  'journal_item_date_updated' => $v['journal_item_date_updated'],
+                  'journal_item_flag' => intval($v['journal_item_flag']),
+                  'journal_item_position' => intval($v['journal_item_position']),
+                  'journal_item_journal_session' => $v['journal_item_journal_session'],
+                  'journal_item_session' => $v['journal_item_session'],
+                  'related' => $this->Journal_model->get_all_journal_item(
+                    array(
+                        'journal_item_group_session' => $v['journal_item_group_session'],
+                        'journal_item_id !=' => $v['journal_item_id']
+                    ),null,null,null,'account_name','asc')
+                );
+            endforeach;
+            $data['journal_item'] = $journal_items;
+        }else if($data['header']['trans_type'] == 2){
+            $params_journal = array(
+                'journal_item_type' => 2,
+                'journal_item_trans_id' => $id,
+                'journal_item_credit > ' => 0
+            );
+            $journal_items = array();
+            $journal_item = $this->Journal_model->get_all_journal_item($params_journal,null,null,null,'account_name','asc');
+            // $location_to = $this->Lokasi_model->get_lokasi($data['header']['trans_location_to_id']);
+            foreach($journal_item as $v):
+                $journal_items[] = array(
+                  'journal_item_id' => intval($v['journal_item_id']),
+                  'journal_item_journal_id' => intval($v['journal_item_journal_id']),
+                  'journal_item_group_session' => $v['journal_item_group_session'],
+                  'journal_item_branch_id' => intval($v['journal_item_branch_id']),
+                  'journal_item_account_id' => intval($v['journal_item_account_id']),
+                  'journal_item_trans_id' => $v['journal_item_trans_id'],
+                  'journal_item_date' => $v['journal_item_date'],
+                  'journal_item_type' => intval($v['journal_item_type']),
+                  'journal_item_type_name' => $v['journal_item_type_name'],
+                  'journal_item_debit' => intval($v['journal_item_debit']),
+                  'journal_item_credit' => intval($v['journal_item_credit']),
+                  'journal_item_note' => $v['journal_item_note'],
+                  'journal_item_user_id' => intval($v['journal_item_user_id']),
+                  'journal_item_date_created' => $v['journal_item_date_created'],
+                  'journal_item_date_updated' => $v['journal_item_date_updated'],
+                  'journal_item_flag' => intval($v['journal_item_flag']),
+                  'journal_item_position' => intval($v['journal_item_position']),
+                  'journal_item_journal_session' => $v['journal_item_journal_session'],
+                  'journal_item_session' => $v['journal_item_session'],
+                  'related' => $this->Journal_model->get_all_journal_item(
+                    array(
+                        'journal_item_group_session' => $v['journal_item_group_session'],
+                        'journal_item_id !=' => $v['journal_item_id']
+                    ),null,null,null,'account_name','asc')
+                );
+            endforeach;
+            $data['journal_item'] = $journal_items;
+        }else if($data['header']['trans_type'] == 5){
+            $location_from = $this->Lokasi_model->get_lokasi($data['header']['trans_location_id']);
+            $location_to = $this->Lokasi_model->get_lokasi($data['header']['trans_location_to_id']);
+            $data['location'] = array(
+                'location_from' => $location_from,
+                'location_to' => $location_to
+            );
+        }else if(($data['header']['trans_type'] == 6) or ($data['header']['trans_type'] == 7)){
+            $location_from = $this->Lokasi_model->get_lokasi($data['header']['trans_location_id']);
+            // $location_to = $this->Lokasi_model->get_lokasi($data['header']['trans_location_to_id']);
+            $data['location'] = array(
+                'location_from' => $location_from,
+                // 'location_to' => $location_to
+            );
+        }else if($data['header']['trans_type'] == 8){
+            $params_journal = array(
+                'journal_item_trans_id' => $id,
+                'journal_item_debit > ' => 0
+            );
+            $journal_item = $this->Journal_model->get_all_journal_item($params_journal,null,null,null,'account_name','asc');
+            // $location_to = $this->Lokasi_model->get_lokasi($data['header']['trans_location_to_id']);
+            $data['journal_item'] = $journal_item;
+        }
+
+        //Content
+        $params = array(
+            'trans_item_trans_id' => $id
+        );
+        $search     = null;
+        $limit      = null;
+        $start      = null;
+        $order      = 'trans_item_date_created';
+        $dir        = 'ASC';
+
+        $data['content'] = $this->Transaksi_model->get_all_transaksi_items($params,$search,$limit,$start,$order,$dir);
+
+        $data['result'] = array(
+            'branch' => $data['branch'],
+            'header' => $data['header'],
+            'location' => $data['location'],
+            'content' => $data['content'],
+            'journal' => $data['journal_item'],
+            'footer' => '',
+            'footer' => array(
+                'user_creator' => array(
+                    'user_id' => !empty($data['header']['trans_user_id']) ? $data['header']['user_id'] : '-',
+                    'user_name' => !empty($data['header']['trans_user_id']) ? $data['header']['user_username'] : '-',
+                    'user_phone' => !empty($data['header']['trans_user_id']) ? $data['header']['user_phone_1'] : '-',
+                    'user_email' => !empty($data['header']['trans_user_id']) ? $data['header']['user_email_1'] : '-',
+                ),
+                'user_delivered' => !empty($data['header']['trans_vehicle_person']) ? $this->Kontak_model->get_kontak($data['header']['trans_vehicle_person']): '-'
+            )            
+        );
+
+        // echo json_encode($data['header']);die;
+
+        $session = $this->session->userdata();   
+        $session_branch_id = $session['user_data']['branch']['id'];
+        $session_user_id = $session['user_data']['user_id'];
+        //Aktivitas
+        $params = array(
+            'activity_user_id' => !empty($session_user_id) ? $session_user_id : null,
+            'activity_branch_id' => !empty($session_branch_id) ? $session_branch_id : null,
+            'activity_action' => 6,
+            'activity_table' => 'trans',
+            'activity_table_id' => $id,
+            'activity_text_1' => ucwords(strtolower($data['header']['type_name'])),
+            'activity_text_2' => ucwords(strtolower($data['header']['trans_number'])),
+            'activity_text_3' => ucwords(strtolower($data['header']['contact_name'])),
+            'activity_date_created' => date('YmdHis'),
+            'activity_flag' => 0
+        );
+        $this->save_activity($params);
+
+        $data['say_number'] = !empty($data['header']['trans_total']) ? $this->uppercase($this->say_number($data['header']['trans_total'])) : '-';
+        
+        //Set Layout From Order Type
+        if($data['header']['trans_type']==1){
+            $data['title'] = 'Pembelian';
+            $this->load->view($this->print_directory.'purchase_buy',$data);
+        }
+        else if($data['header']['trans_type']==2){
+            $data['title'] = 'Invoice';
+            $this->load->view($this->print_directory.'sales_sell_2',$data);
+        }
+        else if($data['header']['trans_type']==3){
+            $data['title'] = 'Retur Pembelian';
+            $this->load->view($this->print_directory.'purchase_return',$data);
+        }        
+        else if($data['header']['trans_type']==4){
+            $data['title'] = 'Retur Penjualan';
+            $this->load->view($this->print_directory.'sales_return',$data);
+        }                
+        // else if($data['header']['trans_type']==3){
+        //     $data['title'] = 'Price Quotation';
+        //     $this->load->view($this->print_directory.'purchase_quotation',$data);
+        // }
         // else if($data['header']['trans_type']==4){
         //     $data['title'] = 'Checkup Medicine';
         //     $this->load->view($this->print_directory.'checkup_medicine',$data);

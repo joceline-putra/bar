@@ -2741,7 +2741,8 @@ class Keuangan extends MY_Controller{
                                     'total' => $v['trans_total'],
                                     'paid' => $v['trans_total_paid'],
                                     'sisa' => $sisa
-                                )
+                                ),
+                                'trans_wafu' => intval($v['trans_wafu'])
                             );
                             $total_tagihan=$total_tagihan+$v['trans_total'];
                             $total_terbayar=$total_terbayar+$v['trans_total_paid'];                        

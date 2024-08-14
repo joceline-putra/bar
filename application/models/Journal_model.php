@@ -498,7 +498,7 @@ class Journal_model extends CI_Model{
         // ";
         $this->db->select("trans_id, trans_session, trans_number, trans_date, trans_date_due, trans_contact_id, trans_paid, trans_flag, trans_total, DATE_FORMAT(`trans_date`,'%d-%b-%y, %H:%i') AS trans_date_format, 
             DATE_FORMAT(`trans_date_due`,'%d-%b-%y, %H:%i') AS trans_date_due_format,
-            trans_note");
+            trans_note, trans_wafu");
         $this->db->select("trans_total_paid");
         $this->db->select("contact_name");        
         // $this->db->select("($subquery) AS total_paid");
