@@ -1560,7 +1560,7 @@ class Report extends MY_Controller{
                 //     $order_total = $o['order_subtotal'];
                 //     $get_order_item[] = $this->Order_model->get_all_order_items(array('order_item_order_id'=>$o['order_id']),null,null,null,'order_item_id','asc');
                 // }
-                if($v['trans_wafu'] ==1){ $va = 'WF'; }
+                if($v['trans_wafu'] ==1){ $va = 'WP'; }
                 else if($v['trans_wafu'] ==2){ $va = 'NW';}
                 else{ $va = '-';}                
 
