@@ -93,7 +93,7 @@
                                     <td>
                                         <?php 
                                         if($header['trans_wafu'] == 1){
-                                            echo 'WF';
+                                            echo 'WP';
                                         }else if($header['trans_wafu'] == 2){
                                             echo 'NW';
                                         }else{

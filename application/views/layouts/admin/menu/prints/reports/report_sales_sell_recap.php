@@ -61,7 +61,7 @@
                         <td><b>Keterangan</b></td>              
                         <!-- <td><b>Sales</b></td>          -->
                         <td><b>Jatuh Tempo</b></td>                                               
-                        <td style="text-align: left;"><b>Wafu</b></td>                           
+                        <td style="text-align: left;"><b>Wapu</b></td>                           
                         <td style="text-align: right;"><b>Total</b></td>
                         <td style="text-align: right;"><b>Pph (-)</b></td>
                         <td style="text-align: right;"><b>Ppn (-)</b></td>                                                
