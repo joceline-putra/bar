@@ -253,8 +253,8 @@
                                                                                 <label class="form-label">Jenis Pembayaran Ppn</label>
                                                                                 <select id="trans_wafu" name="trans_wafu" class="form-control">
                                                                                     <option value="0">Pilih</option>
-                                                                                    <option value="1">Wafu</option>
-                                                                                    <option value="2">Non Wafu</option>
+                                                                                    <option value="1">Wapu</option>
+                                                                                    <option value="2">Non Wapu</option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
