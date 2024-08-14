@@ -247,7 +247,7 @@
                         }
                         
                         if(parseInt(row.trans_wafu) == 1){
-                            dsp += '<label class="label label-primary" style="padding:2px 4px;">WF</label>';
+                            dsp += '<label class="label label-primary" style="padding:2px 4px;">WP</label>';
                         }
                         else if(parseInt(row.trans_wafu) == 2){
                             dsp += '<label class="label label-danger" style="padding:2px 4px;">NW</label>';
