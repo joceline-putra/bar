@@ -86,7 +86,15 @@
                                                 <option value="0">-- Semua --</option>
                                             </select>
                                         </div>
-                                    </div>                                      
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12 form-group padding-remove-left">
+                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                                            <label class="form-label">Proyek</label>
+                                            <select id="filter_ref_number" name="filter_ref_number" class="form-control">
+                                                <option value="0">-- Semua --</option>
+                                            </select>
+                                        </div>
+                                    </div>                                                                          
                                 </div>  
                                 <div class="col-md-12 col-xs-12 col-sm-12 table-responsive">
                                     <table id="table-data" class="table table-bordered" data-limit-start="0" data-limit-end="10"

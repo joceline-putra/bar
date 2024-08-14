@@ -70,7 +70,7 @@
                             </p>
                         </div>
                         <div class="col-xs-3 text-right">
-                            <b onclick="window.print();" style="cursor:pointer;">No. <?php echo $header['trans_number']; ?></b><br>
+                            <b onclick="window.print();" style="cursor:pointer;">No. KW.<?php echo $header['trans_number']; ?></b><br>
                         </div>          
                         </p>
                     </div>

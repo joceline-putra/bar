@@ -595,6 +595,11 @@
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan
                                                                     </a>
                                                                 </li>
+                                                                <li>
+                                                                    <a href="#" class="btn-print-dropdown" data-action="print2">
+                                                                        <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan 2
+                                                                    </a>
+                                                                </li>                                                                
                                                                 <li class="">
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_history">
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan + Riwayat

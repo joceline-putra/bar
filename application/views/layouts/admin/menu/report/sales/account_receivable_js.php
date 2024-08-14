@@ -85,6 +85,60 @@
                 }
             }
         });
+        $('#filter_ref_number').select2({
+            //dropdownParent:$("#modal-id"), //If Select2 Inside Modal
+            placeholder: '<i class="fas fa-warehouse"></i> Search',
+            minimumInputLength: 0,
+            ajax: {
+                type: "get",
+                url: "<?= base_url('search/manage'); ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        tipe: 2,
+                        source: 'trans_ref_number'
+                    }
+                    return query;
+                },
+                processResults: function (datas, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: datas,
+                        pagination: {
+                            more: (params.page * 10) < datas.count_filtered
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: function (datas) { //When Select on Click
+                if (!datas.id) {
+                    return datas.text;
+                }
+                if ($.isNumeric(datas.id) == true) {
+                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                    return datas.text;
+                }
+            },
+            templateSelection: function (datas) { //When Option on Click
+                if (!datas.id) {
+                    return datas.text;
+                }
+                //Custom Data Attribute
+                $(datas.element).attr('data-alamat', datas.alamat);
+                $(datas.element).attr('data-telepon', datas.telepon);
+                $(datas.element).attr('data-email', datas.email);
+                if ($.isNumeric(datas.id) == true) {
+                    return datas.text;
+                    // return '<i class="fas fa-warehouse '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                }
+            }
+        });        
 
         var collapsedGroups = {};
         var top = '';
@@ -251,6 +305,7 @@
             var request = $(this).attr('data-request'); //report_purchase_buy_recap
             var format = $(this).attr('data-format'); //html, xls
             var contact = $("#filter_contact").find(':selected').val();
+            var ref_number = $("#filter_ref_number").find(":selected").val();
             var order = 'trans_date';
             var dir = 'asc';
 
@@ -259,7 +314,7 @@
                     + request + '/'
                     + $("#start").val() + '/'
                     + $("#end").val() + '/'
-                    + contact + "?format=" + format + "&order=" + order + "&dir=" + dir;
+                    + contact + "?format=" + format + "&order=" + order + "&dir=" + dir + "&trans_ref_number=" + ref_number;
             window.open(print_url, '_blank');
             // }else{
             // $.alert('Akun Perkiraan harus dipilih dahulu');

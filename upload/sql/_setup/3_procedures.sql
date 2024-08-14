@@ -2124,7 +2124,8 @@ CREATE PROCEDURE `sp_report_finance`(IN vACTION INT(5),IN vSTART VARCHAR(255),IN
                 `total_data` INT(50),
                 `search` VARCHAR(255),
                 `trans_sales_id` INT(5) DEFAULT NULL,
-                `trans_user_id` INT(5) DEFAULT NULL,                
+                `trans_user_id` INT(5) DEFAULT NULL,        
+                `trans_ref_number` VARCHAR(255),       
                 PRIMARY KEY (`temp_id`),
                 INDEX `TRANS_ID`(`trans_id`) USING BTREE
             ) ENGINE=MEMORY;    
@@ -2137,6 +2138,7 @@ CREATE PROCEDURE `sp_report_finance`(IN vACTION INT(5),IN vSTART VARCHAR(255),IN
             SET @end_date = DATE_FORMAT(@end_date, "%Y%m%d%H%i%s");
                         
             BLOCK_A:BEGIN /* DONE Get Group of Account */
+                DECLARE mTEXT TEXT;
                 DECLARE mTYPE_NAME VARCHAR(255); DECLARE mTRANS_ID BIGINT(50); DECLARE mTRANS_TYPE INT(5); DECLARE mTRANS_DATE VARCHAR(255); DECLARE mTRANS_DATE_DUE VARCHAR(255);
                 DECLARE mTRANS_NUMBER VARCHAR(255); DECLARE mTRANS_NOTE VARCHAR(255); DECLARE mTRANS_TOTAL_DPP DOUBLE(18,2) DEFAULT 0; DECLARE mTRANS_DISCOUNT DOUBLE(18,2) DEFAULT 0; 
                 DECLARE mTRANS_TOTAL DOUBLE(18,2) DEFAULT 0; DECLARE mTRANS_TOTAL_PAID DOUBLE(18,2) DEFAULT 0; DECLARE mTRANS_FLAG INT(5); DECLARE mTRANS_PAID INT(5);
@@ -2145,12 +2147,17 @@ CREATE PROCEDURE `sp_report_finance`(IN vACTION INT(5),IN vSTART VARCHAR(255),IN
                 DECLARE mTRANS_SESSION VARCHAR(255);
                 DECLARE mSALES_ID BIGINT(50);
                 DECLARE mUSER_ID BIGINT(50);                
+                DECLARE mREF2 TEXT;
 
                 DECLARE mFINISHED INTEGER;
 
+                -- IF vSEARCH > 0 THEN 
+                --     SELECT trans_ref_number INTO mTEXT FROM trans WHERE trans_id = vSEARCH;
+                -- END IF;
+
                 DECLARE mACTION_CURSOR CURSOR FOR
                     SELECT trans_id, trans_session, trans_date, trans_date_due, trans_note, trans_number, trans_total_dpp, trans_discount, trans_total, trans_total_paid, trans_flag, trans_paid,
-                    contact_id, contact_code, contact_name, trans_sales_id, trans_user_id
+                    contact_id, contact_code, contact_name, trans_sales_id, trans_user_id, trans_ref_number
                     FROM trans
                     LEFT JOIN contacts ON trans_contact_id=contact_id
                     WHERE trans_branch_id=vBRANCH_ID
@@ -2161,20 +2168,20 @@ CREATE PROCEDURE `sp_report_finance`(IN vACTION INT(5),IN vSTART VARCHAR(255),IN
                     AND CASE WHEN vACCOUNT_ID > 0 THEN `trans_contact_id`=vACCOUNT_ID ELSE `trans_contact_id` > 0 END
                     ORDER BY trans_date DESC;    
                 DECLARE CONTINUE HANDLER FOR NOT FOUND SET mFINISHED = 1;   
-                
+                                    -- AND CASE WHEN vSEARCH > 0 THEN `trans_ref_number` LIKE mTEXT ELSE 1=1 END
                 OPEN mACTION_CURSOR;
                 LOOP_1: LOOP
                     FETCH mACTION_CURSOR INTO mTRANS_ID, mTRANS_SESSION, mTRANS_DATE, mTRANS_DATE_DUE, mTRANS_NOTE, mTRANS_NUMBER, 
                     mTRANS_TOTAL_DPP, mTRANS_DISCOUNT, mTRANS_TOTAL, mTRANS_TOTAL_PAID, mTRANS_FLAG, mTRANS_PAID, mCONTACT_ID, mCONTACT_CODE, mCONTACT_NAME,
-                    mSALES_ID, mUSER_ID;
+                    mSALES_ID, mUSER_ID, mREF2;
 
                     IF mFINISHED = 1 THEN LEAVE LOOP_1;
                     END IF;       
                     
                     SET mBALANCE = mTRANS_TOTAL - mTRANS_TOTAL_PAID;
                     INSERT INTO journals_temp(`trans_id`,`trans_session`,`type_name`,`trans_type`,`trans_date`,`trans_date_due`,`trans_date_due_over`,`trans_note`,`trans_number`,`trans_total_dpp`,`trans_discount`,`trans_total`,`trans_total_paid`,`trans_flag`,`trans_paid`,
-                    `contact_id`,`contact_code`,`contact_name`,`balance`,`trans_sales_id`,`trans_user_id`) 
-                    VALUES (mTRANS_ID,mTRANS_SESSION,CONCAT('Penjualan'),CONCAT(2),mTRANS_DATE,mTRANS_DATE_DUE,fn_time_ago(mTRANS_DATE_DUE),mTRANS_NOTE,mTRANS_NUMBER,mTRANS_TOTAL_DPP,mTRANS_DISCOUNT,mTRANS_TOTAL,mTRANS_TOTAL_PAID,mTRANS_FLAG,mTRANS_paid,mCONTACT_ID,mCONTACT_CODE,mCONTACT_NAME,mBALANCE,mSALES_ID,mUSER_ID);   
+                    `contact_id`,`contact_code`,`contact_name`,`balance`,`trans_sales_id`,`trans_user_id`,`trans_ref_number`) 
+                    VALUES (mTRANS_ID,mTRANS_SESSION,CONCAT('Penjualan'),CONCAT(2),mTRANS_DATE,mTRANS_DATE_DUE,fn_time_ago(mTRANS_DATE_DUE),mTRANS_NOTE,mTRANS_NUMBER,mTRANS_TOTAL_DPP,mTRANS_DISCOUNT,mTRANS_TOTAL,mTRANS_TOTAL_PAID,mTRANS_FLAG,mTRANS_paid,mCONTACT_ID,mCONTACT_CODE,mCONTACT_NAME,mBALANCE,mSALES_ID,mUSER_ID,mREF2);   
                     SET mBALANCE = 0;
                 END LOOP LOOP_1; 
             END BLOCK_A;
