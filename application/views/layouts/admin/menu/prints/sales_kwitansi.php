@@ -92,7 +92,7 @@
                                 <tr>
                                     <td>Uang sebanyak</td>
                                     <td>:</td>                                    
-                                    <td><b><?php echo $say_number;?></b></td>                                                                        
+                                    <td><b><?php echo $say_number;?> RUPIAH</b></td>                                                                        
                                 </tr>
                                 <tr>
                                     <td>Untuk pembayaran</td>

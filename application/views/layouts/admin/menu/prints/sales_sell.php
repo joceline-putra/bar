@@ -204,7 +204,7 @@
                                 echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
                                 echo '</tr>';
                                 echo '<tr>';
-                                echo '<td colspan="6">Terbilang: ' . $say_number . '</td>';
+                                echo '<td colspan="6">Terbilang: ' . $say_number . ' RUPIAH</td>';
                                 echo '</tr>';
                                 ?>
                             </tbody>
