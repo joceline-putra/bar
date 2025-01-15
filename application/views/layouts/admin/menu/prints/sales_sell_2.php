@@ -82,7 +82,7 @@
                         <div class="col-xs-6">
                             <table class="mariska table no-border" style="margin-bottom: 0px;">
                                 <tr><td>Tanggal</td><td class="text-right"><?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></td></tr>
-                                <tr><td>Tanggal Jth Tempo</td><td class="text-right"><?php echo date("d-M-Y", strtotime($header['trans_date_due'])); ?></td></tr>
+                                <!-- <tr><td>Tanggal Jth Tempo</td><td class="text-right"><?php #echo date("d-M-Y", strtotime($header['trans_date_due'])); ?></td></tr> -->
                                 <!-- <tr><td>Sales</td><td>:</td></tr> -->
                                 <tr><td>Proyek</td><td class="text-right"><?php echo $header['trans_ref_number']; ?></td></tr>
                                 <!-- <tr><td>Plat Nomor</td><td class="text-right"><?php echo $header['trans_vehicle_plate_number']; ?></td></tr>               -->
@@ -107,6 +107,9 @@
                         </div>          
                         </p>
                     </div>      
+                    <div class="col-md-12 col-xs-12" style="">
+                        Keterangan:<?php echo $header['trans_note']; ?><br><br>
+                    </div>                    
                     <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:0px;">
                         <table class="mariska table table-bordered">
                             <thead>
@@ -210,9 +213,6 @@
                             </tbody>
                         </table>
                     </div>  
-                    <div class="col-md-12 col-xs-12" style="">
-                        Keterangan:<?php echo $header['trans_note']; ?><br><br>
-                    </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 footer-box">
                         <!-- <div class="col-md-3 col-xs-3">
                             <div class="col-md-12 col-xs-12"><h5>Dibuat Oleh</h5></div>
