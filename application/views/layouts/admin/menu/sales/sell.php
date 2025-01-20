@@ -511,6 +511,7 @@
                                                     -->
 
                                                     <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0">
+                                                        <h5>Tagihan</h5>
                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                             <div class="form-group">
                                                                 <label class="col-md-5 col-xs-12 prs-0 form-label">Subtotal</label>
@@ -551,7 +552,25 @@
                                                                            style="text-align:right;" readonly='true' />
                                                                 </div>
                                                             </div>
-                                                        </div>                                                        
+                                                        </div>    
+                                                        <h5>Lain-lain</h5>
+                                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
+                                                            <div class="form-group">
+                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">DPP Nilai Lain</label>
+                                                                <div class="col-md-7 col-xs-12 prs-0">
+                                                                    <input id="note_dpp" name="note_dpp" type="text" value="0" class="form-control" style="text-align:right;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
+                                                            <div class="form-group">
+                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">Ppn (12%)</label>
+                                                                <div class="col-md-7 col-xs-12 prs-0">
+                                                                    <input id="note_ppn" name="note_ppn" type="text" value="0" class="form-control"
+                                                                           style="text-align:right;">
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                                                                                
                                                     </div>
                                                 </div>
                                             </div>

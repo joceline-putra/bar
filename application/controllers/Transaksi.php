@@ -710,6 +710,8 @@ class Transaksi extends MY_Controller{
                         'trans_sales_id' => !empty($data['trans_sales_id']) ? $data['trans_sales_id'] : null,
                         'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null,
                         'trans_wafu' => !empty($data['trans_wafu']) ? $data['trans_wafu'] : 0,
+                        'trans_note_dpp' => !empty($data['note_dpp']) ? str_replace(',','',$data['note_dpp']) : 0,
+                        'trans_note_ppn' => !empty($data['note_ppn']) ? str_replace(',','',$data['note_ppn']) : 0                        
                     );
                     // var_dump($params);die;
                     $params['trans_vehicle_person']           = !empty($data['trans_vehicle_person']) ? $data['trans_vehicle_person'] : null;
@@ -1183,7 +1185,8 @@ class Transaksi extends MY_Controller{
                         // 'trans_digital_provider' => !empty($data['digital_provider']) ? $data['digital_provider'] : null
                         'trans_sales_id' => !empty($data['trans_sales_id']) ? $data['trans_sales_id'] : null,
                         'trans_person_name' => !empty($data['trans_person_name']) ? $data['trans_person_name'] : null,
-                        'trans_wafu' => !empty($data['trans_wafu']) ? $data['trans_wafu'] : 0,
+                        'trans_note_dpp' => !empty($data['note_dpp']) ? str_replace(',','',$data['note_dpp']) : 0,
+                        'trans_note_ppn' => !empty($data['note_ppn']) ? str_replace(',','',$data['note_ppn']) : 0
                     );
                     // var_dump($params);die;
                     $params['trans_vehicle_person']           = !empty($data['trans_vehicle_person']) ? $data['trans_vehicle_person'] : null;

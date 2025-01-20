@@ -209,6 +209,20 @@
                                 echo '<tr>';
                                 echo '<td colspan="6">Terbilang: ' . $say_number . ' RUPIAH</td>';
                                 echo '</tr>';
+                                if (floatval($header['trans_note_dpp']) > 0) {
+                                    echo '<tr>';
+                                    echo '<td colspan="4"></td>';
+                                    echo '<td style="text-align:right"><b>DPP Nilai Lain</b></td>';
+                                    echo '<td style="text-align:right">' . number_format($header['trans_note_dpp'], 2, '.', ',') . '</td>';
+                                    echo '</tr>';
+                                    if (floatval($header['trans_note_ppn']) > 0) {
+                                        echo '<tr>';
+                                        echo '<td colspan="4"></td>';
+                                        echo '<td style="text-align:right"><b>PPN (12%)</b></td>';
+                                        echo '<td style="text-align:right">' . number_format($header['trans_note_ppn'], 2, '.', ',') . '</td>';
+                                        echo '</tr>';
+                                    }                                             
+                                }                                 
                                 ?>
                             </tbody>
                         </table>

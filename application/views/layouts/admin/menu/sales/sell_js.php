@@ -154,6 +154,9 @@
         new AutoNumeric('#modal_total_bayar', autoNumericOption2);
         new AutoNumeric('#modal_total_kembali', autoNumericOption2);
 
+        new AutoNumeric('#note_dpp', autoNumericOption2);
+        new AutoNumeric('#note_ppn', autoNumericOption2);        
+
         //Animate
         const btnNew = document.querySelector('#btn-new');
         const btnCancel = document.querySelector('#btn-cancel');
@@ -1390,7 +1393,9 @@
                     trans_vehicle_plate_number: $("#trans_vehicle_plate_number").val(),
                     trans_sales_id: $("#trans_sales_id").val(),
                     trans_person_name: $("#trans_person_name").val(),
-                    trans_wafu: $("#trans_wafu").val()
+                    trans_wafu: $("#trans_wafu").val(),
+                    note_dpp:$("#note_dpp").val(),
+                    note_ppn:$("#note_ppn").val()
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -1573,6 +1578,8 @@
                         // $("select[name='gudang']").attr('disabled',true);                    
                         // $.alert('Gudang harus select2');
                         // alert(dd+'-'+mm+'-'+yy);
+                        $("#note_ppn").val(d.result.trans_note_ppn);
+                        $("#note_dpp").val(d.result.trans_note_dpp);                                                
                         loadTransItems(d.result.trans_id);
                         $("#btn-new").hide();
                         $("#btn-save").hide();
@@ -1642,7 +1649,9 @@
                     trans_vehicle_plate_number: $("#trans_vehicle_plate_number").val(),
                     trans_sales_id: $("#trans_sales_id").val(),
                     trans_person_name: $("#trans_person_name").val(),
-                    trans_wafu: $("#trans_wafu").val()                    
+                    trans_wafu: $("#trans_wafu").val(),
+                    note_dpp:$("#note_dpp").val(),
+                    note_ppn:$("#note_ppn").val()                                        
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -3130,6 +3139,17 @@
             result = addCommas(harga * qty);
             $("#e_subtotal").val(result);
         });
+        $(document).on("input", "#note_dpp", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var dppp = $("#note_dpp").val();
+            var result = "0.00";
+            if (dppp.length > 0) {
+                dppp = removeCommas(dppp);
+            }
+            result = addCommas(dppp * 0.12);
+            $("#note_ppn").val(result);
+        });        
         $(document).on("click", ".btn-pay", function (e) {
             e.preventDefault();
             var next = true;
@@ -4405,6 +4425,8 @@
                 $("select[name='gudang']").attr('disabled', false);
                 $("#form-trans textarea").val('');
             }
+            $("#note_dpp").val(0);
+            $("#note_ppn").val(0);            
             // $("#btn-new").hide();
             // $("#btn-save").show();
             // $("#btn-cancel").show();
@@ -5043,7 +5065,7 @@
         var form = '#form-trans-item';
         var attrInput = [
             "keterangan",
-            // "satuan",
+            "satuan",
             "qty",
             "harga",
             "jumlah",
