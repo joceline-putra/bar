@@ -107,8 +107,8 @@
                                     <th class="text-left">Produk</th>
                                     <th class="text-right">Qty</th>
                                     <th class="text-right">Harga</th>
-                                    <th class="text-right">Diskon</th>            
-                                    <th class="text-left">Pajak</th>            
+                                    <!-- <th class="text-right">Diskon</th>             -->
+                                    <!-- <th class="text-left">Pajak</th>             -->
                                     <th class="text-right">Total</th>            
                                 </tr>
                             </thead>
@@ -146,8 +146,8 @@
                                     echo '<td>' . $v['product_name'] . '</td>';
                                     echo '<td style="text-align:right;">' . number_format($v['trans_item_out_qty'], 2, '.', ',') . ' ' . $v['trans_item_unit'] . '</td>';
                                     echo '<td style="text-align:right;">' . number_format($v['trans_item_sell_price'], 2, '.', ',') . '</td>';
-                                    echo '<td style="text-align:right;">' . number_format($v['trans_item_discount'], 2, '.', ',') . '</td>';
-                                    echo '<td style="text-align:left;">' . $ppn_label . '</td>';
+                                    // echo '<td style="text-align:right;">' . number_format($v['trans_item_discount'], 2, '.', ',') . '</td>';
+                                    // echo '<td style="text-align:left;">' . $ppn_label . '</td>';
                                     echo '<td style="text-align:right;">' . number_format($price_qty, 2, '.', ',') . '</td>';
                                     echo '</tr>';
                                 }
@@ -178,40 +178,47 @@
                                     echo '<td style="text-align:right">' . number_format($total_discount, 2, '.', ',') . '</td>';
                                     echo '</tr>';
                                 }
-                                if (floatval($header['trans_voucher']) > 0) {
-                                    echo '<tr>';
-                                    echo '<td colspan="5"></td>';
-                                    echo '<td style="text-align:right"><b>Voucher</b></td>';
-                                    echo '<td style="text-align:right"> -' . number_format($total_voucher, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-                                }                                   
+                                // if (floatval($header['trans_voucher']) > 0) {
+                                //     echo '<tr>';
+                                //     echo '<td colspan="5"></td>';
+                                //     echo '<td style="text-align:right"><b>Voucher</b></td>';
+                                //     echo '<td style="text-align:right"> -' . number_format($total_voucher, 2, '.', ',') . '</td>';
+                                //     echo '</tr>';
+                                // }                                   
                                 // echo '<tr>';
                                 //   echo '<td colspan="4"></td>';
                                 //   echo '<td style="text-align:right"><b>Total Discount</b></td>';
                                 //   echo '<td style="text-align:right">'.number_format($total_discount,2,'.',',').'</td>';
                                 // echo '</tr>';   
                                 echo '<tr>';
-                                echo '<td colspan="5"></td>';
-                                echo '<td style="text-align:right"><b>Grand Total</b></td>';
+                                echo '<td colspan="3"></td>';
+                                echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
                                 echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
                                 echo '</tr>';
-                                echo '<tr>';
-                                echo '<td colspan="6">Terbilang: ' . $say_number . '</td>';
-                                echo '</tr>';
+                                // echo '<tr>';
+                                // echo '<td colspan="6">Terbilang: ' . $say_number . '</td>';
+                                // echo '</tr>';
                                 if (floatval($header['trans_note_dpp']) > 0) {
                                     echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:right"><b>DPP Nilai Lain</b></td>';
+                                    echo '<td colspan="3"></td>';
+                                    echo '<td style="text-align:left"><b>(b) DPP (11/12xa)</b></td>';
                                     echo '<td style="text-align:right">' . number_format($header['trans_note_dpp'], 2, '.', ',') . '</td>';
                                     echo '</tr>';
                                     if (floatval($header['trans_note_ppn']) > 0) {
                                         echo '<tr>';
-                                        echo '<td colspan="4"></td>';
-                                        echo '<td style="text-align:right"><b>PPN (12%)</b></td>';
+                                        echo '<td colspan="3"></td>';
+                                        echo '<td style="text-align:left"><b>(c) PPN (12%xb)</b></td>';
                                         echo '<td style="text-align:right">' . number_format($header['trans_note_ppn'], 2, '.', ',') . '</td>';
                                         echo '</tr>';
                                     }                                             
-                                }                                 
+                                }     
+                                $sppn = !empty($header['trans_note_ppn']) ? $header['trans_note_ppn'] : 0;
+                                $tt = $total_grand + $sppn;
+                                echo '<tr>';
+                                echo '<td colspan="3"></td>';
+                                echo '<td style="text-align:left"><b>(d) Total (a+c)</b></td>';
+                                echo '<td style="text-align:right">' . number_format($tt, 2, '.', ',') . '</td>';
+                                echo '</tr>';                                                                
                                 ?>
                             </tbody>
                         </table>

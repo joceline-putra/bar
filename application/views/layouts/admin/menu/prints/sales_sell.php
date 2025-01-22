@@ -166,36 +166,37 @@
 
                                 // $total_grand = $total_sub + $total_ppn + $total_discount;
                                 $total_discount = $header['trans_discount'];
-                                $total_grand = (($total_sub + $total_ppn) - $total_discount) + $total_discount_row;
-                                $total_grand = $total_grand - $total_voucher;
-                                if ((floatval($header['trans_total_ppn']) > 0) or floatval($header['trans_discount']) > 0) {
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:right"><b>Subtotal</b></td>';
-                                    echo '<td style="text-align:right">' . number_format($total_sub, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-                                }
-                                if (floatval($header['trans_total_ppn']) > 0) {
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:right"><b>Ppn</b></td>';
-                                    echo '<td style="text-align:right">' . number_format($total_ppn, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-                                }
-                                if (floatval($header['trans_discount']) > 0) {
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:right"><b>Diskon Nota</b></td>';
-                                    echo '<td style="text-align:right"> -' . number_format($total_discount, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-                                }
-                                if (floatval($header['trans_voucher']) > 0) {
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:right"><b>Voucher</b></td>';
-                                    echo '<td style="text-align:right"> -' . number_format($total_voucher, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-                                }                                                   
+                                // $total_grand = (($total_sub + $total_ppn) - $total_discount) + $total_discount_row;
+                                // $total_grand = $total_grand - $total_voucher;
+                                $total_grand = $total_sub;                                
+                                // if ((floatval($header['trans_total_ppn']) > 0) or floatval($header['trans_discount']) > 0) {
+                                //     echo '<tr>';
+                                //     echo '<td colspan="4"></td>';
+                                //     echo '<td style="text-align:right"><b>Jumlah</b></td>';
+                                //     echo '<td style="text-align:right">' . number_format($total_sub, 2, '.', ',') . '</td>';
+                                //     echo '</tr>';
+                                // }
+                                // if (floatval($header['trans_total_ppn']) > 0) {
+                                    // echo '<tr>';
+                                    // echo '<td colspan="4"></td>';
+                                    // echo '<td style="text-align:right"><b>Ppn</b></td>';
+                                    // echo '<td style="text-align:right">' . number_format($total_ppn, 2, '.', ',') . '</td>';
+                                    // echo '</tr>';
+                                // }
+                                // if (floatval($header['trans_discount']) > 0) {
+                                //     echo '<tr>';
+                                //     echo '<td colspan="4"></td>';
+                                //     echo '<td style="text-align:right"><b>Diskon Nota</b></td>';
+                                //     echo '<td style="text-align:right"> -' . number_format($total_discount, 2, '.', ',') . '</td>';
+                                //     echo '</tr>';
+                                // }
+                                // if (floatval($header['trans_voucher']) > 0) {
+                                //     echo '<tr>';
+                                //     echo '<td colspan="4"></td>';
+                                //     echo '<td style="text-align:right"><b>Voucher</b></td>';
+                                //     echo '<td style="text-align:right"> -' . number_format($total_voucher, 2, '.', ',') . '</td>';
+                                //     echo '</tr>';
+                                // }                                                   
                                 // echo '<tr>';
                                 //   echo '<td colspan="4"></td>';
                                 //   echo '<td style="text-align:right"><b>Total Discount</b></td>';
@@ -203,26 +204,33 @@
                                 // echo '</tr>';
                                 echo '<tr>';
                                 echo '<td colspan="4"></td>';
-                                echo '<td style="text-align:right"><b>Grand Total</b></td>';
+                                echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
                                 echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
                                 echo '</tr>';
                                 // echo '<tr>';
                                 // echo '<td colspan="6">Terbilang: ' . $say_number . ' RUPIAH</td>';
                                 // echo '</tr>';           
-                                if (floatval($header['trans_note_dpp']) > 0) {
+                                // if (floatval($header['trans_note_dpp']) > 0) {
                                     echo '<tr>';
                                     echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:right"><b>DPP</b></td>';
+                                    echo '<td style="text-align:left"><b>(b) DPP (11/12xa)</b></td>';
                                     echo '<td style="text-align:right">' . number_format($header['trans_note_dpp'], 2, '.', ',') . '</td>';
                                     echo '</tr>';
-                                    if (floatval($header['trans_note_ppn']) > 0) {
+                                    // if (floatval($header['trans_note_ppn']) > 0) {
                                         echo '<tr>';
                                         echo '<td colspan="4"></td>';
-                                        echo '<td style="text-align:right"><b>PPN</b></td>';
+                                        echo '<td style="text-align:left"><b>(c) PPN (12%xb)</b></td>';
                                         echo '<td style="text-align:right">' . number_format($header['trans_note_ppn'], 2, '.', ',') . '</td>';
                                         echo '</tr>';
-                                    }                                             
-                                }     
+                                    // }                                             
+                                // }     
+                                $sppn = !empty($header['trans_note_ppn']) ? $header['trans_note_ppn'] : 0;
+                                $tt = $total_grand + $sppn;
+                                echo '<tr>';
+                                echo '<td colspan="4"></td>';
+                                echo '<td style="text-align:left"><b>(d) Total (a+c)</b></td>';
+                                echo '<td style="text-align:right">' . number_format($tt, 2, '.', ',') . '</td>';
+                                echo '</tr>';                                
                                 ?>
                             </tbody>
                         </table>

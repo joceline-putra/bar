@@ -514,13 +514,13 @@
                                                         <h5>Tagihan</h5>
                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                             <div class="form-group">
-                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">Subtotal</label>
+                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">Jumlah</label>
                                                                 <div class="col-md-7 col-xs-12 prs-0">
                                                                     <input id="subtotal" name="subtotal" type="text" value="0" class="form-control" style="text-align:right;" readonly='true'/>
                                                                 </div>
                                                             </div>
                                                         </div>                  
-                                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
+                                                        <div class="hide col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                           <div class="form-group">
                                                             <label class="col-md-5 col-xs-12 prs-0 form-label">Diskon per Produk</label>
                                                             <div class="col-md-7 col-xs-12 prs-0">
@@ -536,7 +536,7 @@
                                                             </div>
                                                           </div>                            
                                                         </div>                                                    
-                                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
+                                                        <div class="hide col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                             <div class="form-group">
                                                                 <label class="col-md-5 col-xs-12 prs-0 form-label">Ppn (11%)</label>
                                                                 <div class="col-md-7 col-xs-12 prs-0">
@@ -556,7 +556,7 @@
                                                         <h5>Lain-lain</h5>
                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side prs-0" style="margin-bottom:4px;">
                                                             <div class="form-group">
-                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">DPP Nilai Lain</label>
+                                                                <label class="col-md-5 col-xs-12 prs-0 form-label">DPP</label>
                                                                 <div class="col-md-7 col-xs-12 prs-0">
                                                                     <input id="note_dpp" name="note_dpp" type="text" value="0" class="form-control" style="text-align:right;">
                                                                 </div>

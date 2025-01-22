@@ -1380,7 +1380,7 @@ CREATE TRIGGER `tr_trans_items_after_insert` AFTER INSERT ON `trans_items` FOR E
       UPDATE trans 
       SET 
         trans_total_dpp=mTRANS_ITEM_TOTAL_DPP + mTRANS_ITEM_DISCOUNT, 
-        trans_total_ppn=mTRANS_ITEM_TOTAL_PPN
+        trans_total_ppn=mTRANS_ITEM_TOTAL_PPN + 
         -- trans_total_discount=mTRANS_ITEM_DISCOUNT 
       WHERE trans_id=NEW.trans_item_trans_id;
     
