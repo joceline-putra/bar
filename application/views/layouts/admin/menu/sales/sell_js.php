@@ -155,7 +155,8 @@
         new AutoNumeric('#modal_total_kembali', autoNumericOption2);
 
         new AutoNumeric('#note_dpp', autoNumericOption2);
-        new AutoNumeric('#note_ppn', autoNumericOption2);        
+        new AutoNumeric('#note_ppn', autoNumericOption2);    
+        new AutoNumeric('#total_all', autoNumericOption2);                
 
         //Animate
         const btnNew = document.querySelector('#btn-new');
@@ -281,7 +282,7 @@
                         var dsp = '';
                         // dsp += addCommas(row.order_subtotal);
                         dsp += '<a class="btn-trans-item-info" data-id="' + row.trans_id + '" data-session="' + row.trans_session + '" data-trans-number="' + row.trans_number + '" data-contact-name="' + row.contact_name + '" data-trans-type="' + row.trans_type + '" data-type="trans" style="cursor:pointer;">';
-                        dsp += addCommas((parseFloat(row.trans_total_dpp) + parseFloat(row.trans_total_ppn)) - parseFloat(row.trans_discount));
+                        dsp += addCommas((parseFloat(row.trans_total_dpp) + parseFloat(row.trans_total_ppn)+parseFloat(row.trans_note_ppn)) - parseFloat(row.trans_discount));
                         dsp += '</a>';                 
                         return dsp;
                     }
@@ -1579,7 +1580,9 @@
                         // $.alert('Gudang harus select2');
                         // alert(dd+'-'+mm+'-'+yy);
                         $("#note_ppn").val(d.result.trans_note_ppn);
-                        $("#note_dpp").val(d.result.trans_note_dpp);                                                
+                        $("#note_dpp").val(d.result.trans_note_dpp);
+                        // $("#total_all").val(parseFloat(d.result.trans_total_dpp) + parseFloat(d.result.trans_note_ppn));                                                                        
+                        $("#total_all").val(parseFloat(d.result.trans_total));                                                                        
                         loadTransItems(d.result.trans_id);
                         $("#btn-new").hide();
                         $("#btn-save").hide();
@@ -3142,13 +3145,18 @@
         $(document).on("input", "#note_dpp", function (e) {
             e.preventDefault();
             e.stopPropagation();
+            var dtotal = $("#total").val();            
             var dppp = $("#note_dpp").val();
             var result = "0.00";
+            var result_all = "0.00";            
             if (dppp.length > 0) {
                 dppp = removeCommas(dppp);
             }
-            result = addCommas(dppp * 0.12);
-            $("#note_ppn").val(result);
+            result = dppp * 0.12;
+            result_all = parseFloat(removeCommas(dtotal)) + parseFloat(result);
+            console.log(removeCommas(dtotal),result,result_all);
+            $("#note_ppn").val(addCommas(result));
+            $("#total_all").val(addCommas(result_all));            
         });        
         $(document).on("click", ".btn-pay", function (e) {
             e.preventDefault();

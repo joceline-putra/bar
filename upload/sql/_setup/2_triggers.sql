@@ -1023,6 +1023,7 @@ CREATE TRIGGER `tr_trans_before_insert` BEFORE INSERT ON `trans` FOR EACH ROW
     DECLARE mTRANS_TOTAL DOUBLE(18,2);
     DECLARE mTRANS_TOTAL_DPP DOUBLE(18,2);
     DECLARE mTRANS_RETURN DOUBLE(18,2);
+    DECLARE mTRANS_TOTAL_PPN_CUSTOM DOUBLE(18,2);     
 
     IF NEW.trans_wafu = 1 THEN 
       SET NEW.trans_voucher = NEW.trans_total_ppn;
@@ -1053,7 +1054,7 @@ CREATE TRIGGER `tr_trans_before_insert` BEFORE INSERT ON `trans` FOR EACH ROW
       SET mTRANS_TOTAL = mTRANS_TOTAL - mTRANS_RETURN;
     END IF;
 
-    SET NEW.trans_total = mTRANS_TOTAL;
+    SET NEW.trans_total = mTRANS_TOTAL + mTRANS_TOTAL_PPN_CUSTOM;
 
     IF NEW.trans_sales_id IS NOT NULL THEN
       SELECT contact_name INTO @mCONTACT_NAME FROM contacts WHERE contact_id=NEW.trans_sales_id;
@@ -1074,7 +1075,8 @@ CREATE TRIGGER `tr_trans_before_update` BEFORE UPDATE ON `trans` FOR EACH ROW
     DECLARE mTRANS_VOUCHER DOUBLE(18,2);
     DECLARE mTRANS_TOTAL DOUBLE(18,2);
     DECLARE mTRANS_TOTAL_DPP DOUBLE(18,2);
-    DECLARE mTRANS_TOTAL_PPN DOUBLE(18,2);    
+    DECLARE mTRANS_TOTAL_PPN DOUBLE(18,2); 
+    DECLARE mTRANS_TOTAL_PPN_CUSTOM DOUBLE(18,2);          
     DECLARE mTRANS_RETURN DOUBLE(18,2);
     DECLARE mPRODUCTION_COST DOUBLE(18,2);
     DECLARE mTRANS_PAID INT(5);
@@ -1097,6 +1099,7 @@ CREATE TRIGGER `tr_trans_before_update` BEFORE UPDATE ON `trans` FOR EACH ROW
     SET mTRANS_TOTAL_DPP = NEW.trans_total_dpp;
     SET mTRANS_TOTAL_PPN = NEW.trans_total_ppn;    
     SET mTRANS_PAID = NEW.trans_paid;
+    SET mTRANS_TOTAL_PPN_CUSTOM = NEW.trans_note_ppn; 
 
     SET mTRANS_TOTAL = mTRANS_TOTAL_DPP + mTRANS_TOTAL_PPN;
     IF mTRANS_DISCOUNT > 0 THEN 
@@ -1133,7 +1136,7 @@ CREATE TRIGGER `tr_trans_before_update` BEFORE UPDATE ON `trans` FOR EACH ROW
       END IF;      
     END IF;
 
-    SET NEW.trans_total = mTRANS_TOTAL;
+    SET NEW.trans_total = mTRANS_TOTAL + mTRANS_TOTAL_PPN_CUSTOM;
     SET NEW.trans_date_updated = NOW();
 
     IF NEW.trans_sales_id IS NOT NULL THEN
