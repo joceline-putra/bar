@@ -241,7 +241,7 @@
                                                                             <div class="col-md-12 col-sm-12 padding-remove-side">
                                                                                 <div class="input-append success date col-md-12 col-lg-12 no-padding">
                                                                                     <input name="tgl_tempo" id="tgl_tempo" type="text" class="form-control" readonly="true"
-                                                                                           value="<?php echo $end_date_due; ?>" data-value="">
+                                                                                           value="<?php echo $end_date; ?>" data-value="">
                                                                                     <span class="add-on date-add"><i class="fas fa-calendar-alt"></i></span>
                                                                                 </div>
                                                                             </div>
@@ -294,7 +294,7 @@
                                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left prs-5">
                                                                             <div class="form-group">
                                                                                 <label class="form-label">Nomor Dokumen *</label>
-                                                                                <input id="nomor" name="nomor" type="text" value="" class="form-control" placeholder="Otomatis jika dikosongkan" />
+                                                                                <input id="nomor" name="nomor" type="text" value="" class="form-control" placeholder="Otomatis" readonly>
                                                                             </div>
                                                                         </div>
                                                                     </div>

@@ -102,7 +102,7 @@
                 weekStart: 1
             }).on("changeDate", function (e) {
                 var contact_termin = $("#kontak").find(':selected').attr('data-termin');
-                getDateOver(contact_termin);
+                // getDateOver(contact_termin);
             });
             $("#tgl_tempo").datepicker({
                 // defaultDate: new Date(),
@@ -4778,7 +4778,7 @@
             loadPaymentSuccess(paid_params);    
         */
         function getDateOver(value) {
-            // console.log(value);
+
             $("#syarat_pembayaran").html('');
             if (parseInt(value) == 0) {
                 $("select[id='syarat_pembayaran']").append('' + '<option value="' + value + '">Cash (COD)</option>');
@@ -4790,9 +4790,11 @@
                 }
             }
             $("select[id='syarat_pembayaran']").val(value).trigger('change');
+            // console.log(value);
             setDateOver(value);
         }
-        function setDateOver(contact_termin) {
+        function setDateOver(contact_termin) { return;
+            console.log('setDateOver();');
             var form = {
                 action: 'calculate-due-date',
                 termin: contact_termin,
@@ -4809,18 +4811,8 @@
                     var m = d.message;
                     var r = d.result;
                     if (parseInt(s) == 1) {
-                        // notif(s,m);
-                        // notifSuccess(m);
-                        /* hint zz_for or zz_each */
                         $("#tgl_tempo").datepicker("update", r);
-                    } else {
-                        // notif(s,m);
-                        // notifSuccess(m);
                     }
-                },
-                error: function (xhr, status, err) {
-                    // notif(0,err);
-                    // notifError(err);
                 }
             });
         }
