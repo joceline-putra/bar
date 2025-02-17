@@ -26,11 +26,11 @@
             padding-bottom: 0px;
         }
         .mrk > tbody > tr > td {
-            padding-top: 0px;
+            padding-top: 4px;
             padding-bottom: 0px;
         }  
         .footer-box{
-            margin-top: 4px;
+            margin-top: 24px;
             margin-bottom: 4px;
         }
         .footer-box > div{
@@ -87,17 +87,17 @@
                                 <tr>
                                     <td>Telah terima dari</td>
                                     <td>:</td>                                    
-                                    <td><b><?php echo $header['contact_name']; ?></b></td>                                                                        
+                                    <td><b style="letter-spacing:1px;"><?php echo $header['contact_name']; ?></b></td>                                                                        
                                 </tr>
                                 <tr>
                                     <td>Uang sebanyak</td>
                                     <td>:</td>                                    
-                                    <td><b><?php echo $say_number;?> RUPIAH</b></td>                                                                        
+                                    <td><b style="letter-spacing:1px;"><?php echo $say_number;?> RUPIAH</b></td>                                                                        
                                 </tr>
                                 <tr>
                                     <td>Untuk pembayaran</td>
                                     <td>:</td>                                    
-                                    <td><b><?php echo $header['trans_note']; ?></b></td>                                                                        
+                                    <td><b style="letter-spacing:1px;"><?php echo $header['trans_note']; ?></b></td>                                                                        
                                 </tr>                                                                
                             </tbody>
                         </table>

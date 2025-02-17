@@ -30,7 +30,7 @@
             padding-bottom: 0px;
         }  
         .footer-box{
-            margin-top: 4px;
+            margin-top: 34px;
             margin-bottom: 4px;
         }
         .footer-box > div{
@@ -245,7 +245,7 @@
                                 </p>            
                             </div>          
                         </div> -->
-                        <div class="col-md-8 col-xs-8" style="padding-left:0px;">
+                        <div class="col-md-6 col-xs-6" style="padding-left:0px;">
                             <div class="col-md-12 col-xs-12" style="padding-left:0px;"><b>Rekening Pembayaran</b></div>
                             <div class="col-md-12 col-xs-12" style="padding-left:0px;">
                                 <p style="text-align: left;margin-top:20px;">
@@ -258,7 +258,7 @@
                                 </p>
                             </div>          
                         </div>                
-                        <div class="col-md-4 col-xs-4">
+                        <div class="col-md-6 col-xs-6">
                             <div class="col-md-12 col-xs-12"><h5>Semarang, <?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></h5></div>
                             <div class="col-md-12 col-xs-12">
                                 <p style="text-align: center;margin-top:20px;"><br><br><br>
