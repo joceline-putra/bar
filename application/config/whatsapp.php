@@ -11,7 +11,7 @@ $whatsapp_key  = '';
 $whatsapp_sender  = '';
 $whatsapp_username  = '';
 $whatsapp_service = array();
-$whatsapp_watermark = 'Teksmu.com';
+$whatsapp_watermark = 'https://kepoo.in';
 
 switch($vendor){
 	case "ruangwa":
@@ -41,7 +41,7 @@ switch($vendor){
 		// $whatsapp_sender   = '628989900149';
 		break;		
 	case "wam.umbrella.co.id":
-		$whatsapp_server   = 'https://teksmu.com/';				
+		$whatsapp_server   = 'https://wa.kepoo.in/';
 		$whatsapp_sender   = '628989900149';      
 		
 		//Client ID instance.client_id
