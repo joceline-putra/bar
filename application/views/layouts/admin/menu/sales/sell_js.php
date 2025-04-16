@@ -2031,9 +2031,16 @@
                         }
                     });
                 } else {
+
+                    var param = '';
+                    if(action == 'print_non_dpp'){
+                        action = 'print2';
+                        param = '?non_dpp=1';
+                    }
+
                     var x = screen.width / 2 - 700 / 2;
                     var y = screen.height / 2 - 450 / 2;
-                    var print_url = url_print_global + '/' + action + '/' + session;
+                    var print_url = url_print_global + '/' + action + '/' + session + param;
                     var win = window.open(print_url, 'Print Penjualan', 'width=700,height=485,left=' + x + ',top=' + y + '').print();
                 }
             } else {

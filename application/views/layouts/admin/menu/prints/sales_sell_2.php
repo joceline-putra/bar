@@ -202,11 +202,27 @@
                                 //   echo '<td style="text-align:right"><b>Total Discount</b></td>';
                                 //   echo '<td style="text-align:right">'.number_format($total_discount,2,'.',',').'</td>';
                                 // echo '</tr>';
-                                echo '<tr>';
-                                echo '<td colspan="4"></td>';
-                                echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
-                                echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
-                                echo '</tr>';
+                                // trans_discount
+                                if (floatval($header['trans_discount']) > 0) {
+                                    echo '<tr>';
+                                    echo '<td colspan="4"></td>';
+                                    echo '<td style="text-align:left"><b>&nbsp;&nbsp;PPh</b></td>';
+                                    echo '<td style="text-align:right">' . number_format($total_discount, 2, '.', ',') . '</td>';
+                                    echo '</tr>';
+
+                                    echo '<tr>';
+                                    echo '<td colspan="4"></td>';
+                                    echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
+                                    echo '<td style="text-align:right">' . number_format($total_grand-$total_discount, 2, '.', ',') . '</td>';
+                                    echo '</tr>';
+
+                                } else {                                
+                                    echo '<tr>';
+                                    echo '<td colspan="4"></td>';
+                                    echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
+                                    echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
+                                    echo '</tr>';
+                                }
                                 // echo '<tr>';
                                 // echo '<td colspan="6">Terbilang: ' . $say_number . ' RUPIAH</td>';
                                 // echo '</tr>';

@@ -4843,6 +4843,9 @@ class Transaksi extends MY_Controller{
         }
     } 
     function print2($session){ //Standard Print Session
+        $print_dpp = !empty($this->input->get('non_dpp')) ? intval($this->input->get('non_dpp')) : 0;
+        $data['print_dpp'] = $print_dpp;
+        
         //Header
         $params = array(
             'trans_session' => $session
@@ -4996,7 +4999,7 @@ class Transaksi extends MY_Controller{
                 'user_delivered' => !empty($data['header']['trans_vehicle_person']) ? $this->Kontak_model->get_kontak($data['header']['trans_vehicle_person']): '-'
             )            
         );
-
+        
         // echo json_encode($data['header']);die;
 
         $session = $this->session->userdata();   
