@@ -225,6 +225,7 @@
                                     // }                                             
                                 // }     
                                 $sppn = !empty($header['trans_note_ppn']) ? $header['trans_note_ppn'] : 0;
+                                $spph = !empty($header['trans_discount']) ? $header['trans_discount'] : 0;
                                 $tt = $total_grand + $sppn;
                                 echo '<tr>';
                                 echo '<td colspan="4"></td>';
@@ -261,7 +262,7 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="col-md-12 col-xs-12"><h5>Semarang, <?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></h5></div>
                             <div class="col-md-12 col-xs-12">
-                                <p style="text-align: center;margin-top:20px;"><br><br><br>
+                                <p style="text-align: center;margin-top:28px;"><br><br><br>
                                     (Beny Samodra Triambodo, ST, SH, MH,)
                                 </p>
                             </div>         

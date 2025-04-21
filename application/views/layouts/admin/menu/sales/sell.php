@@ -642,7 +642,7 @@
                                                                 </li>         
                                                                 <li>
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_non_dpp">
-                                                                        <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan Tanpa DPP
+                                                                        <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan 3
                                                                     </a>
                                                                 </li>                                                                                                                       
                                                                 <li class="">

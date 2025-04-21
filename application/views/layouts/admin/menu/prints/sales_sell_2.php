@@ -202,32 +202,17 @@
                                 //   echo '<td style="text-align:right"><b>Total Discount</b></td>';
                                 //   echo '<td style="text-align:right">'.number_format($total_discount,2,'.',',').'</td>';
                                 // echo '</tr>';
-                                // trans_discount
-                                if (floatval($header['trans_discount']) > 0) {
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:left"><b>&nbsp;&nbsp;PPh</b></td>';
-                                    echo '<td style="text-align:right">' . number_format($total_discount, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
+                                echo '<tr>';
+                                echo '<td colspan="4"></td>';
+                                echo '<td style="text-align:left"><b>Tagihan Saat Ini</b></td>';
+                                echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
+                                echo '</tr>';
 
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
-                                    echo '<td style="text-align:right">' . number_format($total_grand-$total_discount, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-
-                                } else {                                
-                                    echo '<tr>';
-                                    echo '<td colspan="4"></td>';
-                                    echo '<td style="text-align:left"><b>(a) Jumlah</b></td>';
-                                    echo '<td style="text-align:right">' . number_format($total_grand, 2, '.', ',') . '</td>';
-                                    echo '</tr>';
-                                }
                                 // echo '<tr>';
                                 // echo '<td colspan="6">Terbilang: ' . $say_number . ' RUPIAH</td>';
                                 // echo '</tr>';
                                 // if (floatval($header['trans_note_dpp']) > 0) {
-                                    echo '<tr>';
+                                    echo '<tr style="display:none;">';
                                     echo '<td colspan="4"></td>';
                                     echo '<td style="text-align:left"><b>(b) DPP (11/12xa)</b></td>';
                                     echo '<td style="text-align:right">' . number_format($header['trans_note_dpp'], 2, '.', ',') . '</td>';
@@ -235,16 +220,25 @@
                                     // if (floatval($header['trans_note_ppn']) > 0) {
                                         echo '<tr>';
                                         echo '<td colspan="4"></td>';
-                                        echo '<td style="text-align:left"><b>(c) PPN (12%xb)</b></td>';
+                                        echo '<td style="text-align:left"><b>PPN</b></td>';
                                         echo '<td style="text-align:right">' . number_format($header['trans_note_ppn'], 2, '.', ',') . '</td>';
                                         echo '</tr>';
                                     // }                                             
                                 // }         
+                                // trans_discount
+                                if (floatval($header['trans_discount']) > 0) {
+                                    echo '<tr>';
+                                    echo '<td colspan="4"></td>';
+                                    echo '<td style="text-align:left"><b>PPh (2%)</b></td>';
+                                    echo '<td style="text-align:right">' . number_format($total_discount, 2, '.', ',') . '</td>';
+                                    echo '</tr>';
+                                }                                
                                 $sppn = !empty($header['trans_note_ppn']) ? $header['trans_note_ppn'] : 0;
-                                $tt = $total_grand + $sppn;
+                                $spph = !empty($header['trans_discount']) ? $header['trans_discount'] : 0;
+                                $tt = ($total_grand + $sppn) - $spph;
                                 echo '<tr>';
                                 echo '<td colspan="4"></td>';
-                                echo '<td style="text-align:left"><b>(d) Total (a+c)</b></td>';
+                                echo '<td style="text-align:left"><b>Total</b></td>';
                                 echo '<td style="text-align:right">' . number_format($tt, 2, '.', ',') . '</td>';
                                 echo '</tr>';                                                            
                                 ?>
@@ -277,7 +271,7 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="col-md-12 col-xs-12"><h5>Semarang, <?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></h5></div>
                             <div class="col-md-12 col-xs-12">
-                                <p style="text-align: center;margin-top:20px;"><br><br><br>
+                                <p style="text-align: center;margin-top:28px;"><br><br><br>
                                     (Beny Samodra Triambodo, ST, SH, MH,)
                                 </p>
                             </div>         
