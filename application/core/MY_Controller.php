@@ -174,12 +174,23 @@ class MY_Controller extends CI_Controller{
         $hari = substr($tgl, 0, 2);
         $tahun2 = substr($tgl, 8, 2);
 
-        $query = $this->db->query("SELECT MAX(RIGHT(trans_number,5)) AS last_number
-            FROM trans
-            WHERE YEAR(trans_date_created)=$tahun
-            AND MONTH(trans_date_created)=$bulan
-            AND trans_branch_id=$session_branch_id
-            AND trans_type=$tipe");
+        if($tipe==2){
+            // $query = $this->db->query("SELECT MAX(RIGHT(trans_number,5)) AS last_number
+            //     FROM trans
+            //     WHERE trans_branch_id=1
+            //     AND trans_type=$tipe");
+            $query = $this->db->query("SELECT RIGHT(trans_number,5) AS last_number 
+            FROM trans 
+            WHERE trans_branch_id=$session_branch_id AND trans_type=$tipe 
+            ORDER BY trans_id DESC LIMIT 1");
+        } else {
+            $query = $this->db->query("SELECT MAX(RIGHT(trans_number,5)) AS last_number
+                FROM trans
+                WHERE YEAR(trans_date_created)=$tahun
+                AND MONTH(trans_date_created)=$bulan
+                AND trans_branch_id=$session_branch_id
+                AND trans_type=$tipe");
+        }
         $nomor = "";
         if ($query->num_rows() > 0){
             foreach ($query->result() as $v){
