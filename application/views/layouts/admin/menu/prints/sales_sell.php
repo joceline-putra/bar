@@ -263,7 +263,7 @@
                             <div class="col-md-12 col-xs-12"><h5>Semarang, <?php echo date("d-M-Y", strtotime($header['trans_date'])); ?></h5></div>
                             <div class="col-md-12 col-xs-12">
                                 <p style="text-align: center;margin-top:28px;"><br><br><br>
-                                    (Beny Samodra Triambodo, ST, SH, MH,)
+                                    (Adv. Beny Samodra Triambodo, ST, SH, MH,)
                                 </p>
                             </div>         
                         </div>
