@@ -255,6 +255,11 @@
                                         Bank BNI Cabang Ahmad Yani Semarang<br>
                                         a/n CV. Barokah Abadi<br>
                                         a/c 194.902.0919
+                                    </i><br>
+                                    <i> atau<br>
+                                        Bank Mandiri Cabang Kepodang Semarang<br>
+                                        a/n CV. Barokah Abadi<br>
+                                        a/c 135.00.1295054.7
                                     </i>
                                 </p>
                             </div>          
