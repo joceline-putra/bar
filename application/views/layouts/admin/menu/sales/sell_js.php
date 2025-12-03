@@ -2036,6 +2036,9 @@
                     if(action == 'print_non_dpp'){
                         action = 'print2';
                         param = '?non_dpp=1';
+                    }else if(action == 'print_lama'){
+                        action = 'print2';
+                        param = '?non_dpp=2';
                     }
 
                     var x = screen.width / 2 - 700 / 2;

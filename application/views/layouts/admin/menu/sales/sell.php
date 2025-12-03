@@ -644,6 +644,10 @@
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_non_dpp">
                                                                         <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan 3
                                                                     </a>
+                                                                </li><li>
+                                                                    <a href="#" class="btn-print-dropdown" data-action="print_lama">
+                                                                        <i class="fas fa-print"></i>&nbsp;&nbsp;Tagihan 4
+                                                                    </a>
                                                                 </li>                                                                                                                       
                                                                 <li class="">
                                                                     <a href="#" class="btn-print-dropdown" data-action="print_history">

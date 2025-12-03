@@ -6525,7 +6525,7 @@ class Transaksi extends MY_Controller{
             $data['title'] = 'Kwitansi';
             $this->load->view($this->print_directory.'sales_kwitansi',$data);
         }
-    }    
+    }
 }
 
 ?>
